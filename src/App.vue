@@ -1,14 +1,25 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Main></Main>
   </div>
 </template>
 
+<script>
+import Main from '@/views/main.vue'
+export default {
+  name: 'App',
+  components: {
+    Main
+  }
+}
+</script>
+
+
 <style lang="scss">
+template,#app,body,html{
+  width: 100%;
+  height: 100%;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
