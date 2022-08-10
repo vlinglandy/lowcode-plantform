@@ -1,5 +1,10 @@
 <template>
   <div id="app">
+    <header class="header">
+      <div class="logo">
+        <img :src="require('@/assets/logo3.png')" alt="">
+      </div>
+    </header>
     <Main></Main>
   </div>
 </template>
@@ -19,6 +24,22 @@ export default {
 template,#app,body,html{
   width: 100%;
   height: 100%;
+  background: rgb(237,239,243);
+}
+.header{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
+  margin-bottom: 1px;
+}
+.logo img{
+  width: 130.8px;
+  height: 36px;
+  flex-shrink: 0;
+  margin-left: 10px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -27,6 +48,12 @@ template,#app,body,html{
   text-align: center;
   color: #2c3e50;
 }
+
+
+html::-webkit-scrollbar,body::-webkit-scrollbar{
+  display:none
+}
+
 
 #nav {
   padding: 30px;

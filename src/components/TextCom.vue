@@ -1,10 +1,10 @@
 <template>
-  <div :style="style" class="card">文本</div>
+  <div :style="myStyle" class="card">文本</div>
 </template>
 
 <script>
 export default {
-  props:['style'],
+  props:['myStyle'],
 }
 </script>
 
@@ -16,8 +16,8 @@ export default {
   margin: 0 auto;
   line-height: 50px;
   background: #00f;
-  margin-top: 5px;
   position: absolute;
   color: aliceblue;
 }
+
 </style>
