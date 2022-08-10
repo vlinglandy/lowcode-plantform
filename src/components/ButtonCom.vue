@@ -1,18 +1,21 @@
 <template>
-    <div :style="myStyle" class="card"><button>按钮</button></div>
+    <div :style="myStyle" style="position:absolute;">
+     <el-button type="primary" plain>主要按钮</el-button>
+    </div>
 </template>
 
 <script>
 export default {
-  props:['myStyle'],
+  props: ['myStyle'],
+  data() {
+    return {
+      //...
+    }
+  }
 }
 </script>
 
 <style scope>
-template,body{
-  border: none;
-  margin: 0;
-}
 .card{
   width: 50px;
   text-align: center;
@@ -21,6 +24,7 @@ template,body{
   height: 50px;
   background: #00f;
   color: aliceblue;
+  margin-top: 5px;
   position: absolute;
 }
 

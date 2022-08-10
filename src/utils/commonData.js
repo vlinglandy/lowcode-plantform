@@ -14,7 +14,7 @@ export default {
         link: '#',
         content: '点击编辑按钮',
         component: "ButtonCom",
-        style: {}
+        style: {},
     },
     ImgCom: {
         src: 'https://p3-passport.byteacctimg.com/img/user-avatar/c5c1c7b0e8cbe13fd9618089c750b2f8~300x300.image',
@@ -22,7 +22,7 @@ export default {
         component: "ImgCom",
         style: {
             width:"300px",
-            height:"200px"
+            height:"200px",
         },
         imgStyle: {
             width:"300px",
