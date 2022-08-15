@@ -30,6 +30,8 @@ import ImgStyle from '@/components/style/ImgStyle.vue'
 import LinkStyle from '@/components/style/LinkStyle.vue'
 import TextStyle from '@/components/style/TextStyle.vue'
 import VideoStyle from '@/components/style/VideoStyle.vue'
+import FlexBoxStyle from '@/components/style/FlexBoxStyle.vue'
+import FlexBoxProp from '@/components/property/FlexBoxProp.vue'
 export default {
   data() {
     return {
@@ -40,6 +42,7 @@ export default {
         "LinkCom":"LinkProp",
         "TextCom":"TextProp",
         "VideoCom":"VideoProp",
+        "FlexBox":"FlexBoxProp",
       },
       styleMap:{
         "ButtonCom":"ButtonStyle",
@@ -47,6 +50,7 @@ export default {
         "LinkCom":"LinkStyle",
         "TextCom":"TextStyle",
         "VideoCom":"VideoStyle",
+        "FlexBox":"FlexBoxStyle",
       },
       views: {},
     };
@@ -75,7 +79,9 @@ export default {
     ImgStyle,
     LinkStyle,
     TextStyle,
-    VideoStyle
+    VideoStyle,
+    FlexBoxStyle,
+    FlexBoxProp
   },
 };
 </script>

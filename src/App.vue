@@ -1,20 +1,18 @@
 <template>
   <div id="app">
-    <header class="header">
-      <div class="logo">
-        <img :src="require('@/assets/logo3.png')" alt="">
-      </div>
-    </header>
-    <Main></Main>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Main from '@/views/main.vue'
 export default {
   name: 'App',
-  components: {
-    Main
+  data() {
+    return {
+    }
+  },
+  mounted() {
+    document.title="低代码平台"
   }
 }
 </script>
@@ -25,15 +23,6 @@ template,#app,body,html{
   width: 100%;
   height: 100%;
   background: rgb(237,239,243);
-}
-.header{
-  width: 100%;
-  height: 40px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background: #fff;
-  margin-bottom: 1px;
 }
 .logo img{
   width: 130.8px;

@@ -14,14 +14,14 @@
     </div>
     <div class="top-right">
       <div class="top-right-operator">
-        <img :src="require('@/assets/ctrl-z.png')" class="show" alt="">
-        <img :src="require('@/assets/ctrl-z.png')" class="show restore opacity" alt="">
+        <img :src="require('@/assets/ctrl-z.png')" class="show" alt=""  :style="centerStep !== 1?'':'visibility: hidden;'" @click="backOff">
+        <img :src="require('@/assets/ctrl-z.png')" class="show restore opacity" :style="hasMore()?'':'visibility: hidden;'" @click="forward" alt="">
       </div>
       <div class="top-right-function">
         <el-button size="mini" @click="sendSaveJsonEvent">导出json</el-button>
         <el-button size="mini" @click="$refs.file.click()">导入json</el-button>
-        <el-button size="mini" type="primary">预览</el-button>
-        <el-button size="mini" type="primary">发布</el-button>
+        <el-button size="mini" @click="switchState" type="primary">{{edit?'预览':'编辑'}}</el-button>
+        <el-button size="mini" @click="release" type="primary">发布</el-button>
       </div>
       <!-- 隐藏起来的json输入 -->
       <input
@@ -41,10 +41,34 @@
 export default {
     data() {
       return {
-        isPC: true
+        isPC: true,
+        edit:true,
+        centerStep:1
       }
     },
+    mounted(){
+      //获取画布区的阶段
+      this.$bus.$on("getStep",(step) => {
+        this.centerStep = step
+      })
+    },
     methods: {
+      //判断是否还有下一阶段
+      hasMore(){
+        if(sessionStorage.getItem(String(this.centerStep+1)) == null){
+          return false
+        }else{
+          return true
+        }
+      },
+      backOff(){
+        console.log('后退')
+        this.$bus.$emit("backOff")
+      },
+      forward(){
+        console.log('前进')
+        this.$bus.$emit("forward")
+      },
       toPC() {
         this.isPC = true
         this.$bus.$emit("toPc")
@@ -52,6 +76,11 @@ export default {
       toPhone() {
         this.isPC = false
         this.$bus.$emit("toPhone")
+      },
+      // 切换编辑预览状态
+      switchState(){
+        this.edit = !this.edit
+        this.$bus.$emit("switchState")
       },
       sendSaveJsonEvent(){
         this.$bus.$emit("saveJson")
@@ -76,6 +105,10 @@ export default {
           _this.inputJsonEvent(ImportJSON)
         }
       },
+      // 发布页面
+      release() {
+        this.$bus.$emit("release")
+      }
     }
 }
 </script>

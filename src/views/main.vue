@@ -1,12 +1,19 @@
 <template>
-    <div class="main">
-       <Left></Left>
-       <div class="canvas">
-          <Top></Top>
-          <Center></Center>
-       </div>
-      <Right></Right>
-    </div>
+  <div class="container">
+      <header class="header">
+        <div class="logo">
+          <img :src="require('@/assets/logo3.png')" alt="">
+        </div>
+      </header>
+      <div class="main">
+        <Left></Left>
+        <div class="canvas">
+            <Top></Top>
+            <Center></Center>
+        </div>
+        <Right></Right>
+      </div>
+  </div>
 </template>
 
 
@@ -41,9 +48,23 @@ template{
   height: 100%;
   display: flex;
 }
+.container{
+  width: 100%;
+  height: 100%;
+}
 .canvas{
   margin: 0 auto;
   width: 100%;
   height: 100%;
+  position: relative;
+}
+.header{
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
+  margin-bottom: 1px;
 }
 </style>

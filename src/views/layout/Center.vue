@@ -1,6 +1,6 @@
 <template>
-  <div class="center" :class="{phoneSize:isPhone}" @dragover="dropover" @drop.stop="drop">
-    <div>
+  <div class="center" @click="showMainBtn" :class="{phoneSize:isPhone,mainBtn:showButton}" @dragover="dropover" @drop.stop="drop">
+    <div v-if="edit">
       <el-button
       v-show="currentIndex!==-1"
         class="deleteBtn"
@@ -10,7 +10,8 @@
         @click="dialogVisible = true"
       ></el-button>
     </div>
-
+    <!-- 展示中间按钮 -->
+    <CenterButton @click.stop.native="addFlexBox" v-if="showButton"></CenterButton>
     <div
       class="block"
       v-for="(view, index) in views"
@@ -21,11 +22,11 @@
         <component
           :comContent="view.comContent"
           :views="view"
-          draggable="true"
-          class="component-hover"
-          :class="index == currentIndex ? 'selected' : ''"
+          :draggable="edit"
+          :class="{componenthover:edit, selected:index == currentIndex && edit}"
           :myStyle="view.style"
           :is="view.component"
+          :edit="edit"
         >
         </component>
       </div>
@@ -34,6 +35,7 @@
       title="提示"
       :visible.sync="dialogVisible"
       width="30%"
+      v-if="edit"
     >
       <span>确定删除这个组件吗</span>
       <span slot="footer" class="dialog-footer">
@@ -43,10 +45,12 @@
         >
       </span>
     </el-dialog>
+    <a class="target" ref="link" href="" target="_blank" v-show="false"></a>
   </div>
 </template>
 
 <script>
+import CenterButton from "@/components/button/CenterButton.vue"
 import {nanoid} from 'nanoid';
 import commonData from '@/utils/commonData.js'//改动
 import {dataFormat} from '@/utils/dataFormat.js'
@@ -60,15 +64,29 @@ import VideoCom from "@/components/VideoCom.vue"
 export default {
   data() {
     return {
+      showButton:true,
+      edit: true,// 编辑模式false为预览模式
       isPhone: false,
       dialogVisible:false,
       centerCom: false, //是否是画布内的组件
       currentCom: {}, //选中的组件
       currentIndex: -1,//选中组件的索引
       views: [],// 主要视图数据
+      step:1,
     };
   },
   mounted() {
+    //后退
+    this.$bus.$on("backOff",() => {
+      this.step = this.step - 1
+      this.views = JSON.parse(sessionStorage.getItem(String(--this.step))) 
+      console.log('后退到',this.step)
+    })
+    //前进
+    this.$bus.$on("forward",() => {
+      this.views = JSON.parse(sessionStorage.getItem(String(this.step))) 
+      console.log('前进到',this.step)
+    })
     // 保存json接收
     this.$bus.$on("saveJson",() => {
       this.getJson();
@@ -84,6 +102,48 @@ export default {
     // 转换phone事件
     this.$bus.$on("toPhone",() => {
       this.isPhone = true
+    })
+    // 切换编辑/预览状态
+    this.$bus.$on("switchState",()=>{
+      this.edit = !this.edit
+    })
+    // 发布事件
+    this.$bus.$on("release",()=>{
+      console.log("发布页面");
+      localStorage.setItem("views",JSON.stringify(this.views))
+      let target = this.$refs.link
+      target.setAttribute('href', window.location.origin + '/release')
+      // target.click((e)=>e.stopPropagation())
+      window.open(target.href)
+    })
+    // 清除被点击样式
+    this.$bus.$on("clearFocus",()=>{
+      this.showButton=false
+      for(let i=0;i<this.views.length;i++){
+        this.views[i].focus=false
+        if(this.views[i].children){
+          for(let j=0; j< this.views[i].children.length;j++){
+            this.views[i].children[j].focus=false
+          }
+        }
+      }
+    })
+    // 子组件添加弹性盒子
+    this.$bus.$on("sonAddFlexBox",(data)=>{
+      console.log(this.views);
+      let num = data.children.length > 0 ? 1 : 2;
+      var newData;
+      for(let i = 0;i < num ;i++){
+        newData = deepClone(commonData['Node'])
+        // 数据统一处理
+        newData.id = nanoid();
+        // newData.comContent = commonData[data]//改定
+        data.children.push(newData);
+      }
+      console.log("添加儿子");
+      console.log(this.views);
+      // 激活向右发送数据事件
+      this.$bus.$emit('views',newData);
     })
   },
   methods: {
@@ -108,12 +168,14 @@ export default {
     drop(e) {
       console.log("=========drop========");
       e.preventDefault();
-      if (this.centerCom) {
+      if (this.centerCom && this.edit) {
         console.log("在画布中的组件");
         this.currentCom.style.left = e.offsetX + "px";
         this.currentCom.style.top = e.offsetY + "px";
         this.centerCom = false;
       }else{
+        console.log(e);
+        console.log(e.target);
         var data = e.dataTransfer.getData("attr");
         // 深拷贝拷贝默认组件样式
         var newData = deepClone(commonData[data])
@@ -143,15 +205,53 @@ export default {
     // 向右边发送一个清除事件，让右侧不显示，防止出bug
     cleanSendView(){
       this.$bus.$emit("cleanView")
+    },
+    showMainBtn(e){
+      e.preventDefault()
+      this.$bus.$emit("clearFocus")
+      this.showButton = true
+    },
+    // 向各个方向添加盒子
+    addFlexBox(){
+      console.log("添加弹性盒子");
+      var newData = deepClone(commonData['FlexBox'])
+      // 数据统一处理
+      newData.id = nanoid();
+      // newData.comContent = commonData[data]//改定
+      this.views.push(newData);
+      // 激活向右发送数据事件
+      this.$bus.$emit('views',newData);
     }
-    // 自由布局的数据统一处理
+  },
+  watch:{
+    views:{
+      deep:true,
+      immediate:true,
+       handler(newValue){
+        if(this.step==1){
+          //当为初始状态时
+          sessionStorage.setItem(String(this.step),JSON.stringify([]))
+        }else{
+          sessionStorage.setItem(String(this.step),JSON.stringify(newValue))
+        }
+        //阶段+1
+        this.step++
+      },
+    },
+    step:{
+      immediate:true,
+      handler(newValue){
+        this.$bus.$emit('getStep',--newValue)
+      }
+    }
   },
   components: {
     ButtonCom,
     ImgCom,
     LinkCom,
     TextCom,
-    VideoCom
+    VideoCom,
+    CenterButton
   },
 };
 </script>
@@ -160,6 +260,7 @@ export default {
 
 .block{
   box-sizing: border-box;
+  width: 100%;
 }
 .center {
   margin: 5px 10px 0 10px;
@@ -168,12 +269,28 @@ export default {
   box-sizing: border-box;
   box-shadow: 0 0 20px #ccc;
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
 }
 
 .center::-webkit-scrollbar{
   display:none
 }
 
+.mainBtn{
+    position: absolute;
+    left: 0;
+    top: 40px;
+    bottom: 0;
+    right: 0;
+    background-color: #baf8ff;
+    border: 2px solid #06c;
+    opacity: 0.5;
+    z-index: 2;
+}
 .pcSize {
   width: 100%;
 }
@@ -191,11 +308,14 @@ export default {
   cursor: pointer;
 }
 
-.component-hover:hover{
+.componenthover:hover{
   border: 1px dashed rgb(0,108,255);
 }
 
 .deleteBtn {
-  float: right;
+  position:absolute;
+  right: 0;
+  top: 0;
+  z-index: 100;
 }
 </style>
