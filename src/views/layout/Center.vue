@@ -302,14 +302,22 @@ export default {
 }
 
 .selected {
-  border: 2px solid rgba(0,108,255);
+  /*hp修正点击组件因增加边框而偏移*/
+  border: 1px solid rgba(0, 108, 255) !important
 }
+
+.tpl-container {
+  cursor: pointer;
+}
+
 .tpl-container {
   cursor: pointer;
 }
 
 .componenthover:hover{
-  border: 1px dashed rgb(0,108,255);
+  display: inline-block;
+  /*hp修正点击组件因增加边框而偏移*/
+  border: 1px solid transparent;
 }
 
 .deleteBtn {

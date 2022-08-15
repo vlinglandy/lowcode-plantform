@@ -1,13 +1,12 @@
 export default {
-    LinkCom: {
-        link: '#',
-        content: '点击增加链接',
+    LinkCom: {//更改了对象结构
+        link: 'www.baidu.com',
+        content: '点击跳转',
         component: "LinkCom",
         style: {},
-        comContent: {//改定
-            link: 'https://www.baidu.com',
-            content: '百度的链接',
-            style: {}
+        linkStyle: {
+            height: "50px",
+            fontSize: "16px",
         }
     },
     ButtonCom: {

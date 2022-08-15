@@ -1,27 +1,28 @@
 <template>
-  <div :style="myStyle" class="link"><a :href="link" target="_blank" @click="linkClick">{{ content }}</a></div>
+  <div class="link" :style="views.style" @click="linkClick">
+    <a type="primary" :underline="false" :href="'https://' + views.link" :style="views.linkStyle" ref="linkCom">{{
+        views.content
+    }}
+    </a>
+  </div>
 </template>
 
 <script>
 // import bus from '@/router/eventBus.js'
 export default {
   props: [
-    'comContent',
-    'myStyle'
+    'views'
   ],
   data() {
     return {
-      link: this.comContent.link,
-      content: this.comContent.content,
-      mode: 'edit',
-      // mode: 'preview'
+      mode: 'edit'
     }
   },
   methods: {
     linkClick(e) {
-      if (this.mode === 'edit') {
+      if (this.mode === 'edit') {//hp更改了跳转函数
+        // e.stopPropagation()
         e.preventDefault() //编辑模式下阻止跳转，点击时返回属性
-        this.$bus.$emit('shareLink', { link: this.link, content: this.content }) //使用vue.$emit向right窗口发送属性
       }
     }
   }
@@ -30,16 +31,13 @@ export default {
 
 <style scope>
 .link {
-  text-align: center;
-  margin: 0 auto;
-  line-height: 50px;
   position: absolute;
+  text-align: center;
+  padding: 1px 10px;
 }
 
 .link a {
-  color: #3370ff;
+  color: #409EFF;
   text-decoration: none;
 }
-
-
 </style>

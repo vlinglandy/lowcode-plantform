@@ -11,12 +11,13 @@
       </div>
       <div class="searchBox">
         <div class="searchZoom">
-          <input type="text" id="sbox" placeholder="搜索组件">
+          <input type="text" id="sbox" placeholder="搜索组件" @keyup.enter="searchCom" ref="searchContent">
           <span class="searchBtn" @click="searchCom"></span>
         </div>
       </div>
       <div class="baseEle"><span>基础组件</span></div>
-      <div v-for="item in menu" draggable="true" @dragstart="dragstart" :key="item.name" class="comBox" :id="item.flag">
+      <div v-for="item in searchRes" draggable="true" @dragstart="dragstart" :key="item.name" class="comBox"
+        :id="item.flag">
         <img class="img-show" draggable="false" :src="require('@/' + item.icon)" alt="图片失踪">
         <div class="com-name">{{ item.name }}</div>
       </div>
@@ -30,7 +31,6 @@
 export default {
   data() {
     return {
-
       menu: [
         { flag: "TextCom", name: "文本", icon: "assets/icon_text.png", component: "TextCom" },
         { flag: "ButtonCom", name: "按钮", icon: "assets/icon_btn.png", component: "ButtonCom" },
@@ -38,9 +38,9 @@ export default {
         { flag: "VideoCom", name: "视频", icon: "assets/icon_video.png", component: "VideoCom" },
         { flag: "LinkCom", name: "链接", icon: "assets/icon_link.png", component: "LinkCom" },
       ],
+      searchRes: [],
       isShow: false,
-      isFixed: false
-
+      isFixed: false,
     };
   },
 
@@ -49,8 +49,7 @@ export default {
       e.dataTransfer.setData("attr", e.target.id);
     },
     dragleave() {//当组件拖拽出去后隐藏左侧浮窗
-      // if (e.target.className == 'menu')
-      if( !this.isFixed ) this.closeMenu()
+      if (!this.isFixed) this.closeMenu()
     },
     showMenu() {//左侧浮窗隐藏控制
       this.isShow = !this.isShow;
@@ -61,33 +60,36 @@ export default {
         if (this.isFixed) this.fixedMemu()
       }
     },
-    closeMenu(){
+    closeMenu() {
       this.isShow = false
       this.$refs.menuBtn.style.backgroundPosition = "0 0px"
       if (this.isFixed) this.fixedMemu()
     },
-    openMenu(){
+    openMenu() {
       this.isShow = true
       this.$refs.menuBtn.style.backgroundPosition = "-24px 0"
     },
     searchCom() {//搜索组件功能
-      console.log('搜索功能');
+      this.searchRes = this.menu.filter((v) => v.name.includes(this.$refs.searchContent.value))
     },
     fixedMemu() {//左侧浮窗固定控制
       this.isFixed = !this.isFixed;
       if (this.isFixed) {
         this.$refs.topBtn.style.backgroundPosition = "-50px 0"
         this.$refs.menu.style.boxShadow = 'none'
+        this.$refs.menu.style.left = "40px"
         this.$refs.left.style.width = "340px"
       } else {
         this.$refs.topBtn.style.backgroundPosition = "-26px -23px"
         this.$refs.menu.style.boxShadow = '5px 0 5px -5px rgba(18, 21, 38, 0.3)'
+        this.$refs.menu.style.left = "41px"
         this.$refs.left.style.width = "40px"
       }
-    }
-
-
+    },
   },
+  mounted() {//初始化组件库
+    this.searchCom()
+  }
 };
 </script>
 
@@ -107,11 +109,12 @@ export default {
   user-select: none;
   z-index: 99;
   flex-shrink: 0;
+  transition: width .4s;
 }
 
 .menuBtn {
   /* position: relative; */
-  cursor:pointer;
+  cursor: pointer;
   margin: 17px 0 0 8px;
   height: 24px;
   width: 24px;
@@ -124,12 +127,15 @@ export default {
 .menu {
   position: relative;
   top: -41px;
-  left: 42px;
+  left: 41px;
   width: 300px;
   height: 100%;
   background: rgba(255, 255, 255, 1);
   border: 1px solid rgba(237, 237, 237, 0.6);
-  box-shadow: 4px 6px 6px 0 rgb(31, 50, 88, 0.08)
+  box-shadow: 4px 6px 6px 0 rgb(31, 50, 88, 0.08);
+  transition: left .2s;
+  transition: box-shadow .2s;
+  transition: display 20s;
 }
 
 .comBox {
@@ -138,7 +144,8 @@ export default {
   width: calc(1/3*100%);
   border: solid rgba(237, 237, 237, 0.6);
   border-width: 0px 1px 1px 0px;
-  box-sizing: border-box
+  box-sizing: border-box;
+  transition: box-shadow .3s;
 }
 
 
@@ -182,12 +189,12 @@ export default {
 }
 
 .Tright .topBtn {
-  cursor:pointer;
+  cursor: pointer;
   background-position: -26px -23px;
 }
 
 .Tright .closeBtn {
-  cursor:pointer;
+  cursor: pointer;
   background-position: -0px -23px;
 }
 
