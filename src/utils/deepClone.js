@@ -1,4 +1,8 @@
 export function deepClone(obj) {
+    if(!obj){
+        console.log("==深拷贝传递空对象！==");
+        return obj
+    }
     let result = typeof  obj.splice === "function" ? [] : {};
     if (obj && typeof obj === 'object') {
         for (let key in obj) {

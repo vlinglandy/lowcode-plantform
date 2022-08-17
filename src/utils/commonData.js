@@ -1,5 +1,6 @@
 export default {
     LinkCom: {//更改了对象结构
+        focus:false,
         link: 'www.baidu.com',
         content: '点击跳转',
         component: "LinkCom",
@@ -10,6 +11,7 @@ export default {
         }
     },
     ButtonCom: {
+        focus:false,
         link: '#',
         content: '点击编辑按钮',
         component: "ButtonCom",
@@ -49,6 +51,7 @@ export default {
         },
     },
     ImgCom: {
+        focus:false,
         src: 'https://p3-passport.byteacctimg.com/img/user-avatar/c5c1c7b0e8cbe13fd9618089c750b2f8~300x300.image',
         content: '点击更改图片',
         component: "ImgCom",
@@ -59,14 +62,17 @@ export default {
         imgStyle: {
             width:"300px",
             height: "200px"
-        }
+        },
+        alt: '',
     },
     TextCom: {
+        focus:false,
         content: '点击编辑文本',
         component: "TextCom",
         style: {}
     },
     VideoCom: {
+        focus:false,
         src: '#',
         content: '点击增加视频',
         component: "VideoCom",
@@ -88,11 +94,23 @@ export default {
             marginLeft:"0px",
             marginBottom:"0px",
             marginRight:"0px",
-            paddingTop:"0px",
-            paddingLeft:"0px",
-            paddingBottom:"0px",
-            paddingRight:"0px",
+            paddingTop:"5px",
+            paddingLeft:"5px",
+            paddingBottom:"5px",
+            paddingRight:"5px",
+            boxSizing:'border-box',
+            overflow:'hidden',
+            top:"0px",
+            left:"0px",
+            backgroundColor:"",
+            borderStyle:"",
+            borderWidth:"",
+            borderColor:"",
+            fontSize:"16px",
+            borderRadius:"0px",
+            lineHeight:""
         },
+        content:"",
         views:[],
         children: []
     },
@@ -107,8 +125,28 @@ export default {
             flexDirection:"row",
             width:"100%",
             height:"100%",
-            position:"relative"
+            position:"relative",
+            boxSizing:'border-box',
+            overflow:'hidden',
+            marginTop:"0px",
+            marginLeft:"0px",
+            marginBottom:"0px",
+            marginRight:"0px",
+            paddingTop:"0px",
+            paddingLeft:"0px",
+            paddingBottom:"0px",
+            paddingRight:"0px",
+            top:"0px",
+            left:"0px",
+            backgroundColor:"",
+            borderStyle:"",
+            borderWidth:"",
+            borderColor:"",
+            fontSize:"16px",
+            borderRadius:"0px",
+            lineHeight:""
         },
+        content:"",
         views:[]
     }
 }

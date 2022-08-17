@@ -51,7 +51,6 @@ container {
   align-items: center;
   margin-right: 20px;
   margin-left: 5px;
-
   &-switch{
   margin-right: 42px;
  }

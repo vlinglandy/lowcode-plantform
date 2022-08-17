@@ -18,6 +18,7 @@
         <img :src="require('@/assets/ctrl-z.png')" class="show restore opacity" :style="hasMore()?'':'visibility: hidden;'" @click="forward" alt="">
       </div>
       <div class="top-right-function">
+        <el-button size="mini" type="danger" v-if="hasSelectEvent" @click="deleteEvent" icon="el-icon-delete"></el-button>
         <el-button size="mini" @click="sendSaveJsonEvent">导出json</el-button>
         <el-button size="mini" @click="$refs.file.click()">导入json</el-button>
         <el-button size="mini" @click="switchState" type="primary">{{edit?'预览':'编辑'}}</el-button>
@@ -43,13 +44,18 @@ export default {
       return {
         isPC: true,
         edit:true,
-        centerStep:1
+        centerStep:1,
+        hasSelectEvent: false
       }
     },
     mounted(){
       //获取画布区的阶段
       this.$bus.$on("getStep",(step) => {
         this.centerStep = step
+      })
+      // 监听选中事件
+      this.$bus.$on("selectEvent",(index)=>{
+        this.hasSelectEvent = index === -1 ? false : true 
       })
     },
     methods: {
@@ -60,6 +66,12 @@ export default {
         }else{
           return true
         }
+      },
+      offDelete(){
+        this.hasSelectEvent = false
+      },
+      deleteEvent(){
+        this.$bus.$emit("showDeleteDialog")
       },
       backOff(){
         console.log('后退')

@@ -1,30 +1,35 @@
 function imgDataFormat(data){
     data = commonDataFormat(data)
     // 在这里进行数据处理
+    data.style.zIndex = 50
     return data
 }
 
 function linkDataFormat(data){
     data = commonDataFormat(data)
     // 在这里进行数据处理
+    data.style.zIndex = 50
     return data
 }
 
 function videoDataFormat(data){
     data = commonDataFormat(data)
     // 在这里进行数据处理
+    data.style.zIndex = 50
     return data
 }
 
 function textDataFormat(data){
     data = commonDataFormat(data)
     // 在这里进行数据处理
+    data.style.zIndex = 50
     return data
 }
 
 function buttonDataFormat(data){
     data = commonDataFormat(data)
     // 在这里进行数据处理
+    data.style.zIndex = 50
     return data
 }
 // 统一格式化

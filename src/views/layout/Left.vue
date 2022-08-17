@@ -46,7 +46,9 @@ export default {
 
   methods: {
     dragstart(e) {
+      this.$bus.$emit("updateCurrentCom",{})
       e.dataTransfer.setData("attr", e.target.id);
+      this.$bus.$emit("clearFocus")
     },
     dragleave() {//当组件拖拽出去后隐藏左侧浮窗
       if (!this.isFixed) this.closeMenu()

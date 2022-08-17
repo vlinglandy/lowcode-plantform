@@ -1,9 +1,15 @@
 <template>
-  <div class="card" :style="views.style"  @click="sendViews(views)">
-    <el-image :src="views.src" :style="views.imgStyle" fit='cover' @click="sendViews(views)" style="cursor: pointer;">
-      <div slot="error" class="image-slot" >
+  <div class="card" :style="views.style">
+    <el-image
+      :src="views.src"
+      :style="views.imgStyle"
+      fit="cover"
+      :alt="views.alt"
+      style="cursor: pointer"
+    >
+      <div slot="error" class="image-slot">
         <i class="el-icon-picture-outline"></i>
-        <p style="color: white;">点击上传图片</p>
+        <p style="color: white">点击上传图片</p>
       </div>
     </el-image>
   </div>
@@ -14,21 +20,17 @@ export default {
   data() {
     return {
       // src:'',
-    }
+    };
   },
   props: ["views"],
-  watch:{
-    style:function(newVal){
-      console.log('new',newVal);
-    }
+  watch: {
+    style: function (newVal) {
+      console.log("new", newVal);
+    },
   },
-  mounted(){
-  },
+  mounted() {},
   methods: {
-    sendViews(view){
-      this.$bus.$emit('views',view);
-    }
-  }
+  },
 };
 </script>
 
@@ -43,5 +45,4 @@ export default {
   color: aliceblue;
   position: absolute;
 }
-
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <div>弹性盒子要修改的属性{{views}}</div>
+  <div>
+    文本内容
+    <el-input v-model="views.content"></el-input>
+  </div>
 </template>
 
 <script>

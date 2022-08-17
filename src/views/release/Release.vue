@@ -13,6 +13,9 @@
           :class="{componenthover:edit, selected:index == currentIndex && edit}"
           :myStyle="view.style"
           :is="view.component"
+          :edit="edit"
+          :centerCom="centerCom"
+          :currentCom="currentCom"
         >
         </component>
       </div>
