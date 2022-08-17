@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import {
 	Button, Image, Link, Dialog, Input,Slider,
-	Switch, InputNumber, Option, Select,ColorPicker
+	Switch, InputNumber, Option, Select,ColorPicker,RadioGroup,RadioButton
 } from "element-ui"
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
@@ -28,6 +28,8 @@ Vue.use(Switch)
 Vue.use(Option)
 Vue.use(Select)
 Vue.use(ColorPicker)
+Vue.use(RadioGroup)
+Vue.use(RadioButton)
 Vue.config.productionTip = false
 
 var EventBus = new Vue()

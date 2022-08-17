@@ -14,7 +14,7 @@ export default {
 .btn img{
     width: 16px;
     height: 16px;
-    z-index: 10;
+    z-index: 3;
 }
 .btn{
     cursor: pointer;

@@ -1,47 +1,38 @@
 <template>
-<div style="position: absolute;" :style="myStyle">
-  <video
-    ref="video"
-    class="video-js vjs-default-skin vjs-big-play-centered"
-    width="400"
-    height="300"
-    controls
-  >
-    <source :src="url" />
-  </video>
-</div>
-  
-  <!-- <video
-    src="http://vjs.zencdn.net/v/oceans.mp4"
-    controls
-  ></video> -->
+  <div style="position: absolute;" :style="views.style">
+    <video id="video" ref="video" :style="views.videoStyle" class="video-js vjs-default-skin vjs-big-play-centered"  :src="videoSrc" controls>
+      <source :src="videoSrc" />
+    </video>
+  </div>
+
 </template>
 
 <script>
 export default {
-  props: ["myStyle","src"],
+  props: ["views"],
   data() {
     return {
       player: null, // 用来存储当前 videoS
+      videoSrc:''
     };
   },
   mounted() {
     // 渲染视频
     this.player = this.$video(this.$refs.video);
-    this.$refs.video.style = "";
   },
   computed: {
     url() {
-      return this.src || 'http://vjs.zencdn.net/v/oceans.mp4';
+      return this.views.src;
     },
   },
   watch: {
-    src: {
-      immediate: true,
-      handler(newVal, oldVal) {
-        console.log("oldVal:", oldVal);
-        console.log("newVal:", newVal);
-      },
+    'views.src': {
+        deep: true,
+        immediate: true,
+        handler(newVal, oldVal) {
+          console.log(newVal, oldVal)
+          this.videoSrc = newVal
+        },
     },
   },
 };
@@ -59,15 +50,16 @@ export default {
   background-color: #73859f;
   background-color: rgba(115, 133, 159, 0.5) !important;
 }
+
 .vjs-big-play-button .vjs-icon-placeholder {
   font-size: 1.63em !important;
 }
+
 .video-js .vjs-time-control {
   display: block !important;
 }
+
 .video-js .vjs-remaining-time {
   display: none !important;
 }
-
-
 </style>

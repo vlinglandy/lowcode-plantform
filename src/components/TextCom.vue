@@ -1,17 +1,12 @@
 <template>
   <div :style="myStyle" style="position: absolute;" >
-  <el-input
-    type="textarea"
-    autosize
-    placeholder="请输入内容"
-    v-model="textarea1">
-</el-input>
+    <p :style="views.textStyle"> {{views.content}}</p>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['myStyle'],
+  props: ['myStyle','views'],
   data() {
     return {
       textarea1: '',
@@ -20,7 +15,10 @@ export default {
 }
 </script>
 
-<style>
+<style scope>
+input{
+  outline: 0;
+}
 /* .card{
   width: 50px;
   height: 50px;

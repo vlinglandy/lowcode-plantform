@@ -48,6 +48,7 @@ import {nanoid} from 'nanoid';
 import commonData from '@/utils/commonData.js'//改动
 import {dataFormat} from '@/utils/dataFormat.js'
 import {deepClone} from '@/utils/deepClone.js'
+import {exportHtml} from '@/utils/exportHtml.js'
 import FileSaver from 'file-saver'
 import ButtonCom from "@/components/ButtonCom.vue"
 import ImgCom from "@/components/ImgCom.vue"
@@ -175,6 +176,10 @@ export default {
       this.currentCom = data
       console.log(this.currentCom);
    })
+    // 导出html
+    this.$bus.$on("exportHtml",()=>{
+      this.exportHtml()
+    })  
   },
   methods: {
     //删除组件
@@ -276,6 +281,10 @@ export default {
       this.views.push(newData);
       // 激活向右发送数据事件
       this.$bus.$emit('views',newData);
+    },
+    // 导出html
+    exportHtml(){
+      exportHtml(this.views)
     },
     // 如果两个值是不是除了focus之外其他都一样
     judgeTwoValueIsEqual (objA, objB) {

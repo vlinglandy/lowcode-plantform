@@ -107,10 +107,14 @@ export default {
     color: #aaa;
     align-items: center;
   }
+  &-main{
+    overflow-y: scroll;
+  }
   &-describ img {
     width: 15px;
     height: 15px;
     margin-right: 5px;
+    flex-shrink: 0;
   }
   &-choices {
     display: flex;
@@ -120,6 +124,7 @@ export default {
     width: 100%;
     color: #888;
     font-size: 14px;
+    flex-shrink: 0;
     &-one {
       width: 100%;
       display: flex;

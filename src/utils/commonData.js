@@ -13,41 +13,20 @@ export default {
     ButtonCom: {
         focus:false,
         link: '#',
-        content: '点击编辑按钮',
-        component: "ButtonCom",
+        content: '点击编辑',
+        component: 'ButtonCom',
         disabled: false,
-        options: [{
-            value: '选项1',
-            label: '100 Thin'
-          }, {
-            value: '选项2',
-            label: '200 Extra Light'
-          }, {
-            value: '选项3',
-            label: '300 Light'
-          }, {
-            value: '选项4',
-            label: '400 Normal'
-          }, {
-            value: '选项5',
-            label: '500 Medium'
-          }, {
-            value: '选项6',
-            label: '600 Semi Bold'
-          }, {
-            value: '选项7',
-            label: '700 Bold'
-          }, {
-            value: '选项8',
-            label: 'Extra Bold'
-          }],
-          value: '',
-        style: {
-            fontSize: 12,
-            lineHeight:'',
-            color: "#FFF",
-            backgroundColor: "#409EFF",
-            opacity:1
+        style: {},
+        btnStyle: {
+          fontSize: 14,
+          lineHeight: 2,
+          fontWeight: 400,
+          color: "#FFF",
+          backgroundColor: "#409EFF",
+          opacity: 1,
+          borderRadius: "3px",
+          width:"75px",
+          height:"40px"
         },
     },
     ImgCom: {
@@ -67,16 +46,31 @@ export default {
     },
     TextCom: {
         focus:false,
-        content: '点击编辑文本',
+        content: '编辑文字',
         component: "TextCom",
-        style: {}
+        style: {},
+        textStyle: {
+            textDecoration: 'none',
+            fontSize: 14,
+            lineHeight: 2,
+            fontWeight: 400,
+            opacity: 1,
+            borderRadius: "3px"
+        }
     },
     VideoCom: {
         focus:false,
-        src: '#',
+        src: 'http://vjs.zencdn.net/v/oceans.mp4',
         content: '点击增加视频',
         component: "VideoCom",
-        style: {}
+        style: {
+          width: '300px',
+          height:"200px"
+        },
+        videoStyle:{
+          width:"300px",
+          height:"200px"
+        }
     },
     FlexBox: {
         focus:false,

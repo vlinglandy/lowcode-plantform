@@ -1,61 +1,77 @@
 <template>
   <div>
-    <container>
+
+    <div class="btn">
       <div class="label">按钮内容</div>
       <el-input class="input" v-model="views.content"></el-input>
-    </container>
-    <container>
+    </div>
+
+    <div class="btn">
       <div class="label">按钮尺寸</div>
-       <el-button size="mini">small</el-button>
+       <el-button size="mini" >small</el-button>
        <el-button size="mini">medium</el-button>
        <el-button size="mini">large</el-button>
-    </container>
-    <container>
+    </div>
+
+    <div class="btn">
       <div class="label label-switch">禁用</div>
-      <el-switch 
+      <el-switch class="switch"
         v-model="views.disabled"
         active-color="#409eff"
         inactive-color="#dcdfe6"
+        active-value= true 
+        inactive-value= false
         >
       </el-switch>
-    </container>
+    </div>
+
   </div>
 </template>
 
 <script>
 export default {
+    props: ["views"],
     data() {
     return {
           
         }
     },
-    props:["views"]
+    methods: {
+    // btnDisableChange(){
+    //     this.views.disabled = !this.views.disabled
+    //   }
+    },
 }
 </script>
 
-<style lang="scss" scoped>
-container {
+<style lang="css" scoped>
+.btn {
   display: flex;
-  margin-top: 14px;
+  margin: 30px 12px;
+  height: 28px;
+  width: 100%;
+  font-size: 12px;
+  line-height: 28px;
 }
 .input {
-  float: right;
   width: 60%;
-  line-height: 12px;
-  font-size: 12px;
-}
-.label {
-  display: flex;
-  justify-content: center;
-  font-size: 12px;
-  align-items: center;
-  margin-right: 20px;
-  margin-left: 5px;
-  &-switch{
-  margin-right: 42px;
- }
+  height: 100%;
+  box-sizing: border-box;
 }
 
+.label {
+  width: 70px;
+  height: 100%;
+  text-align: left;
+  align-items: center;
+}
+.label-switch {
+  margin-top: 10px;
+  margin-right: 14px;
+}
+.switch{
+  margin-top: 10px;
+}
 .el-button+.el-button{
     margin-left: -1px;
 }

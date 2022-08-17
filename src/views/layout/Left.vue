@@ -11,15 +11,26 @@
       </div>
       <div class="searchBox">
         <div class="searchZoom">
-          <input type="text" id="sbox" placeholder="搜索组件" @keyup.enter="searchCom" ref="searchContent">
-          <span class="searchBtn" @click="searchCom"></span>
+          <input type="text" id="sbox" placeholder="搜索组件" v-model="searchKey">
+          <!-- hp更改，搜索方式 -->
+          <span class="searchBtn" ></span>
         </div>
       </div>
-      <div class="baseEle"><span>基础组件</span></div>
-      <div v-for="item in searchRes" draggable="true" @dragstart="dragstart" :key="item.name" class="comBox"
+      <div class="eleSlot"><span>基础组件</span></div>
+      <div class="baseEleBox">
+      <div v-for="item in searchRes[0]" draggable="true" @dragstart="dragstart" :key="item.name" class="comBox"
         :id="item.flag">
         <img class="img-show" draggable="false" :src="require('@/' + item.icon)" alt="图片失踪">
         <div class="com-name">{{ item.name }}</div>
+      </div>
+      </div>
+      <div class="eleSlot"><span>复合组件</span></div>
+      <div class="baseEleBox">
+      <div v-for="item in searchRes[1]" draggable="true" @dragstart="dragstart" :key="item.name" class="comBox"
+        :id="item.flag">
+        <img class="img-show" draggable="false" :src="require('@/' + item.icon)" alt="图片失踪">
+        <div class="com-name">{{ item.name }}</div>
+      </div>
       </div>
 
     </div>
@@ -32,15 +43,19 @@ export default {
   data() {
     return {
       menu: [
-        { flag: "TextCom", name: "文本", icon: "assets/icon_text.png", component: "TextCom" },
+        [{ flag: "TextCom", name: "文本", icon: "assets/icon_text.png", component: "TextCom" },
         { flag: "ButtonCom", name: "按钮", icon: "assets/icon_btn.png", component: "ButtonCom" },
         { flag: "ImgCom", name: "图片", icon: "assets/icon_image.png", component: "ImgCom" },
         { flag: "VideoCom", name: "视频", icon: "assets/icon_video.png", component: "VideoCom" },
-        { flag: "LinkCom", name: "链接", icon: "assets/icon_link.png", component: "LinkCom" },
+        { flag: "LinkCom", name: "链接", icon: "assets/icon_link.png", component: "LinkCom" }],
+        [],
+        
+      
       ],
       searchRes: [],
       isShow: false,
-      isFixed: false,
+      isFixed: true,
+      searchKey:''
     };
   },
 
@@ -71,8 +86,8 @@ export default {
       this.isShow = true
       this.$refs.menuBtn.style.backgroundPosition = "-24px 0"
     },
-    searchCom() {//搜索组件功能
-      this.searchRes = this.menu.filter((v) => v.name.includes(this.$refs.searchContent.value))
+    searchCom(key) {//搜索组件功能
+      this.searchRes[0] = this.menu[0].filter((v) => v.name.includes(key))
     },
     fixedMemu() {//左侧浮窗固定控制
       this.isFixed = !this.isFixed;
@@ -88,16 +103,22 @@ export default {
         this.$refs.left.style.width = "40px"
       }
     },
+  
   },
   mounted() {//初始化组件库
-    this.searchCom()
+    this.searchCom('')
+  },
+  watch:{
+    searchKey(newVal){//監聽搜索框
+      this.searchCom(newVal)
+    }
   }
 };
 </script>
 
 <style scoped>
 .left {
-  /* position: absolute; */
+
   margin-right: 2px;
   width: 40px;
   height: 100%;
@@ -115,7 +136,6 @@ export default {
 }
 
 .menuBtn {
-  /* position: relative; */
   cursor: pointer;
   margin: 17px 0 0 8px;
   height: 24px;
@@ -139,9 +159,11 @@ export default {
   transition: box-shadow .2s;
   transition: display 20s;
 }
-
+.baseEleBox{
+  display: flex;
+  flex-wrap:wrap;
+}
 .comBox {
-  float: left;
   height: 113px;
   width: calc(1/3*100%);
   border: solid rgba(237, 237, 237, 0.6);
@@ -238,14 +260,14 @@ export default {
 }
 
 
-.baseEle {
+.eleSlot {
   height: 42px;
   width: 100%;
   border: solid rgba(237, 237, 237, 0.6);
   border-width: 1px 0;
 }
 
-.baseEle span {
+.eleSlot span {
   float: left;
   padding-left: 15px;
   font-size: 12px;

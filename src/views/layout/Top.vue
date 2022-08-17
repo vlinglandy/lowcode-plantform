@@ -19,6 +19,7 @@
       </div>
       <div class="top-right-function">
         <el-button size="mini" type="danger" v-if="hasSelectEvent" @click="deleteEvent" icon="el-icon-delete"></el-button>
+        <el-button size="mini" @click="exportHtml">导出html</el-button>
         <el-button size="mini" @click="sendSaveJsonEvent">导出json</el-button>
         <el-button size="mini" @click="$refs.file.click()">导入json</el-button>
         <el-button size="mini" @click="switchState" type="primary">{{edit?'预览':'编辑'}}</el-button>
@@ -88,6 +89,9 @@ export default {
       toPhone() {
         this.isPC = false
         this.$bus.$emit("toPhone")
+      },
+      exportHtml(){
+        this.$bus.$emit("exportHtml")
       },
       // 切换编辑预览状态
       switchState(){

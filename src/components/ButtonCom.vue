@@ -1,17 +1,23 @@
 <template>
-    <div :style="myStyle" style="position:absolute;">
-     <el-button type="primary" plain>主要按钮</el-button>
+    <div :style="myStyle" class="button-com" style="position:absolute;">
+     <button type="primary" 
+     :style="views.btnStyle" 
+     >
+      {{views.content}}
+     </button>
     </div>
 </template>
 
 <script>
 export default {
-  props: ['myStyle'],
+  props: ['myStyle', 'views'],
   data() {
     return {
       //...
     }
-  }
+  },
+  methods: {
+  },
 }
 </script>
 
@@ -26,6 +32,14 @@ export default {
   color: aliceblue;
   margin-top: 5px;
   position: absolute;
+}
+
+.button-com{
+  transition: all 0.2s;
+}
+
+.button-com:hover{
+  opacity: 0.8;
 }
 
 </style>
