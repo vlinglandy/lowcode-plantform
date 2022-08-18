@@ -29,7 +29,7 @@ import { eventHandle } from './handle/centerEvent.js'
 export default {
   data() {
     return {
-      pattern: 'absolute',// 自由/相对/静态定位模式
+      pattern: 'static',// 自由/相对/静态定位模式
       showButton:true,
       edit: true,// 编辑模式false为预览模式
       isPhone: false,
