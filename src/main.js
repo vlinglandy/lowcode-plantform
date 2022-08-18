@@ -9,7 +9,10 @@ import router from './router'
 import store from './store'
 import videojs from 'video.js'
 import 'video.js/dist/video-js.css'
+import Components from '@/components'
+// 导入核心弹性盒子组件
 import FlexBox from '@/components/core/FlexBox'
+// 导入动态渲染组件
 import DynamicDraw from '@/components/core/DynamicDraw'
 // 注册弹性盒子
 Vue.component('FlexBox',FlexBox)
@@ -32,6 +35,9 @@ Vue.use(RadioGroup)
 Vue.use(RadioButton)
 Vue.config.productionTip = false
 
+// 注册自定义组件
+Vue.use(Components)
+// 全局挂载vue对象
 var EventBus = new Vue()
 Object.defineProperties(Vue.prototype, {
 	$bus: {

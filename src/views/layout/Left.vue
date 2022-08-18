@@ -11,114 +11,138 @@
       </div>
       <div class="searchBox">
         <div class="searchZoom">
-          <input type="text" id="sbox" placeholder="搜索组件" v-model="searchKey">
+          <input
+            type="text"
+            id="sbox"
+            placeholder="搜索组件"
+            v-model="searchKey"
+          />
           <!-- hp更改，搜索方式 -->
-          <span class="searchBtn" ></span>
+          <span class="searchBtn"></span>
         </div>
       </div>
       <div class="eleSlot"><span>基础组件</span></div>
       <div class="baseEleBox">
-      <div v-for="item in searchRes[0]" draggable="true" @dragstart="dragstart" :key="item.name" class="comBox"
-        :id="item.flag">
-        <img class="img-show" draggable="false" :src="require('@/' + item.icon)" alt="图片失踪">
-        <div class="com-name">{{ item.name }}</div>
-      </div>
+        <div
+          v-for="item in searchRes[0]"
+          draggable="true"
+          @dragstart="dragstart"
+          :key="item.name"
+          class="comBox"
+          :id="item.flag"
+        >
+          <img
+            class="img-show"
+            draggable="false"
+            :src="require('@/' + item.icon)"
+            alt="图片失踪"
+          />
+          <div class="com-name">{{ item.name }}</div>
+        </div>
       </div>
       <div class="eleSlot"><span>复合组件</span></div>
       <div class="baseEleBox">
-      <div v-for="item in searchRes[1]" draggable="true" @dragstart="dragstart" :key="item.name" class="comBox"
-        :id="item.flag">
-        <img class="img-show" draggable="false" :src="require('@/' + item.icon)" alt="图片失踪">
-        <div class="com-name">{{ item.name }}</div>
+        <div
+          v-for="item in searchRes[1]"
+          draggable="true"
+          @dragstart="dragstart"
+          :key="item.name"
+          class="comBox"
+          :id="item.flag"
+        >
+          <img
+            class="img-show"
+            draggable="false"
+            :src="require('@/' + item.icon)"
+            alt="图片失踪"
+          />
+          <div class="com-name">{{ item.name }}</div>
+        </div>
       </div>
-      </div>
-
     </div>
-
   </div>
 </template>
 
 <script>
+import menu from "@/data/menuData.js";
 export default {
   data() {
     return {
-      menu: [
-        [{ flag: "TextCom", name: "文本", icon: "assets/icon_text.png", component: "TextCom" },
-        { flag: "ButtonCom", name: "按钮", icon: "assets/icon_btn.png", component: "ButtonCom" },
-        { flag: "ImgCom", name: "图片", icon: "assets/icon_image.png", component: "ImgCom" },
-        { flag: "VideoCom", name: "视频", icon: "assets/icon_video.png", component: "VideoCom" },
-        { flag: "LinkCom", name: "链接", icon: "assets/icon_link.png", component: "LinkCom" }],
-        [],
-        
-      
-      ],
+      menu,
       searchRes: [],
       isShow: false,
-      isFixed: true,
-      searchKey:''
+      isFixed: false,
+      searchKey: "",
     };
   },
-
   methods: {
     dragstart(e) {
-      this.$bus.$emit("updateCurrentCom",{})
+      this.$bus.$emit("updateCurrentCom", {});
       e.dataTransfer.setData("attr", e.target.id);
-      this.$bus.$emit("clearFocus")
+      this.$bus.$emit("clearFocus");
+      e.dataTransfer.setData('comOffsetY',e.offsetY)//8.18hp修改预先存储鼠标相对组件位置
+      e.dataTransfer.setData('comOffsetX',e.offsetX)
     },
-    dragleave() {//当组件拖拽出去后隐藏左侧浮窗
-      if (!this.isFixed) this.closeMenu()
+    dragleave() {
+      //当组件拖拽出去后隐藏左侧浮窗
+      if (!this.isFixed) this.closeMenu();
     },
-    showMenu() {//左侧浮窗隐藏控制
+    showMenu() {
+      //左侧浮窗隐藏控制
       this.isShow = !this.isShow;
       if (this.isShow) {
-        this.$refs.menuBtn.style.backgroundPosition = "-24px 0"
+        this.$refs.menuBtn.style.backgroundPosition = "-24px 0";
       } else {
-        this.$refs.menuBtn.style.backgroundPosition = "0 0px"
-        if (this.isFixed) this.fixedMemu()
+        this.$refs.menuBtn.style.backgroundPosition = "0 0px";
+        if (this.isFixed) this.fixedMemu();
       }
     },
     closeMenu() {
-      this.isShow = false
-      this.$refs.menuBtn.style.backgroundPosition = "0 0px"
-      if (this.isFixed) this.fixedMemu()
+      this.isShow = false;
+      this.$refs.menuBtn.style.backgroundPosition = "0 0px";
+      if (this.isFixed) this.fixedMemu();
     },
     openMenu() {
-      this.isShow = true
-      this.$refs.menuBtn.style.backgroundPosition = "-24px 0"
+      this.isShow = true;
+      this.$refs.menuBtn.style.backgroundPosition = "-24px 0";
     },
-    searchCom(key) {//搜索组件功能
-      this.searchRes[0] = this.menu[0].filter((v) => v.name.includes(key))
+    searchCom(key) {
+      //搜索组件功能
+      this.searchRes[0] = this.menu[0].filter((v) => v.name.includes(key));
+      this.searchRes[1] = this.menu[1].filter((v) => v.name.includes(key))//8.18hp修改增加复合组件
     },
-    fixedMemu() {//左侧浮窗固定控制
+    fixedMemu() {
+      //左侧浮窗固定控制
       this.isFixed = !this.isFixed;
       if (this.isFixed) {
-        this.$refs.topBtn.style.backgroundPosition = "-50px 0"
-        this.$refs.menu.style.boxShadow = 'none'
-        this.$refs.menu.style.left = "40px"
-        this.$refs.left.style.width = "340px"
+        this.$refs.topBtn.style.backgroundPosition = "-38px 0px" //8.18hp修改图标大小
+        this.$refs.menu.style.boxShadow = "none";
+        this.$refs.menu.style.left = "40px";
+        this.$refs.left.style.width = "340px";
       } else {
-        this.$refs.topBtn.style.backgroundPosition = "-26px -23px"
-        this.$refs.menu.style.boxShadow = '5px 0 5px -5px rgba(18, 21, 38, 0.3)'
-        this.$refs.menu.style.left = "41px"
-        this.$refs.left.style.width = "40px"
+        this.$refs.topBtn.style.backgroundPosition = "-18px -19px" //8.18hp修改图标大小
+        this.$refs.menu.style.boxShadow =
+          "5px 0 5px -5px rgba(18, 21, 38, 0.3)";
+        this.$refs.menu.style.left = "41px";
+        this.$refs.left.style.width = "40px";
       }
     },
-  
   },
-  mounted() {//初始化组件库
-    this.searchCom('')
+  mounted() {
+    //初始化组件库
+    this.searchCom("");
   },
-  watch:{
-    searchKey(newVal){//監聽搜索框
-      this.searchCom(newVal)
-    }
-  }
+  watch: {
+    searchKey(newVal) {
+      //監聽搜索框
+      this.searchCom(newVal);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .left {
-
   margin-right: 2px;
   width: 40px;
   height: 100%;
@@ -130,9 +154,9 @@ export default {
   -ms-user-select: none;
   -khtml-user-select: none;
   user-select: none;
-  z-index: 99;
+  z-index: 102;
   flex-shrink: 0;
-  transition: width .4s;
+  transition: width 0.4s;
 }
 
 .menuBtn {
@@ -141,7 +165,7 @@ export default {
   height: 24px;
   width: 24px;
   background: center no-repeat;
-  background-image: url('../../assets/left_spring.png');
+  background-image: url("../../assets/left_spring.png");
   background-size: 75px 51px;
   background-position: 0px 0px;
 }
@@ -155,30 +179,26 @@ export default {
   background: rgba(255, 255, 255, 1);
   border: 1px solid rgba(237, 237, 237, 0.6);
   box-shadow: 4px 6px 6px 0 rgb(31, 50, 88, 0.08);
-  transition: left .2s;
-  transition: box-shadow .2s;
+  transition: left 0.2s;
+  transition: box-shadow 0.2s;
   transition: display 20s;
 }
-.baseEleBox{
+.baseEleBox {
   display: flex;
-  flex-wrap:wrap;
+  flex-wrap: wrap;
 }
 .comBox {
   height: 113px;
-  width: calc(1/3*100%);
+  width: calc(1 / 3 * 100%);
   border: solid rgba(237, 237, 237, 0.6);
   border-width: 0px 1px 1px 0px;
   box-sizing: border-box;
-  transition: box-shadow .3s;
+  transition: box-shadow 0.3s;
 }
-
-
 
 .comBox:hover {
   box-shadow: 0px 7px 16px 1px rgba(0, 0, 0, 0.2);
-
 }
-
 
 .menuTitle {
   height: 48px;
@@ -198,19 +218,19 @@ export default {
 
 .menuTitle .Tright {
   float: right;
-
 }
 
-.Tright span {
+ .Tright span {/*8.18hp修改更改图标大小 (以下)*/
   float: right;
   margin-top: 9px;
   margin-right: 9px;
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   background: center no-repeat;
   background-image: url('../../assets/left_spring.png');
-  background-size: 75px 51px;
+  background-size: 60px 41px;
 }
+
 
 .Tright .topBtn {
   cursor: pointer;
@@ -219,13 +239,12 @@ export default {
 
 .Tright .closeBtn {
   cursor: pointer;
-  background-position: -0px -23px;
-}
+  background-position: -0px -19px;
+}/*8.18hp修改更改图标大小 (以上)*/
 
 .searchBox {
   height: 84px;
   width: 100%;
-
 }
 
 .searchBox .searchZoom {
@@ -236,7 +255,6 @@ export default {
   width: 266px;
   border: 1px solid rgba(196, 198, 207, 1);
   border-radius: 3px;
-
 }
 
 .searchBox input {
@@ -254,11 +272,10 @@ export default {
   height: 24px;
   width: 24px;
   background: center no-repeat;
-  background-image: url('../../assets/left_spring.png');
+  background-image: url("../../assets/left_spring.png");
   background-size: 75px 51px;
   background-position: -47px -25px;
 }
-
 
 .eleSlot {
   height: 42px;
@@ -275,7 +292,6 @@ export default {
   text-align: left;
   font-weight: 700;
 }
-
 
 .img-show {
   width: 30px;

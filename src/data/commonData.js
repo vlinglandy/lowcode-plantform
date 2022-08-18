@@ -4,7 +4,13 @@ export default {
         link: 'www.baidu.com',
         content: '点击跳转',
         component: "LinkCom",
-        style: {},
+        style: {
+            top:'',
+            left:'',
+            position:'',
+            width:'80px',
+            height:"40px"
+        },
         linkStyle: {
             height: "50px",
             fontSize: "16px",
@@ -16,7 +22,13 @@ export default {
         content: '点击编辑',
         component: 'ButtonCom',
         disabled: false,
-        style: {},
+        style: {
+            top:'',
+            left:'',
+            position:'',
+            width:"75px",
+            height:"40px"
+        },
         btnStyle: {
           fontSize: 14,
           lineHeight: 2,
@@ -37,6 +49,9 @@ export default {
         style: {
             width:"300px",
             height:"200px",
+            top:'',
+            left:'',
+            position:''
         },
         imgStyle: {
             width:"300px",
@@ -48,7 +63,13 @@ export default {
         focus:false,
         content: '编辑文字',
         component: "TextCom",
-        style: {},
+        style: {
+            top:'',
+            left:'',
+            position:'',
+            width:'80px',
+            height:"40px"
+        },
         textStyle: {
             textDecoration: 'none',
             fontSize: 14,
@@ -64,8 +85,11 @@ export default {
         content: '点击增加视频',
         component: "VideoCom",
         style: {
-          width: '300px',
-          height:"200px"
+            width: '300px',
+            height:"200px",
+            top:'',
+            left:'',
+            position:''
         },
         videoStyle:{
           width:"300px",

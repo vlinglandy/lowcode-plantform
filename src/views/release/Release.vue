@@ -1,35 +1,19 @@
 <template>
   <div class="center" :class="{phoneSize:isPhone}">
-    <div
-      class="block"
-      v-for="(view, index) in views"
-      :key="view.id"
-    >
-      <div class="tpl-container">
-        <component
-          :comContent="view.comContent"
-          :views="view"
-          :draggable="edit"
-          :class="{componenthover:edit, selected:index == currentIndex && edit}"
-          :myStyle="view.style"
-          :is="view.component"
-          :edit="edit"
-          :centerCom="centerCom"
-          :currentCom="currentCom"
-        >
-        </component>
-      </div>
-    </div>
+    <PowerfulDynamicDraw 
+      :centerCom="centerCom"
+      :currentCom="currentCom"
+      :edit="edit"
+      :views="views"
+      :currentIndex="currentIndex"
+      class="DynamicDraw"
+      ></PowerfulDynamicDraw>
   </div>
 </template>
 
 <script>
-import '@/assets/index.scss'
-import ButtonCom from "@/components/ButtonCom.vue"
-import ImgCom from "@/components/ImgCom.vue"
-import LinkCom from "@/components/LinkCom.vue"
-import TextCom from "@/components/TextCom.vue"
-import VideoCom from "@/components/VideoCom.vue"
+import '@/assets/css/index.scss'
+
 export default {
   data() {
     return {
@@ -53,11 +37,6 @@ export default {
     
   },
   components: {
-    ButtonCom,
-    ImgCom,
-    LinkCom,
-    TextCom,
-    VideoCom
   },
 };
 </script>
@@ -91,6 +70,10 @@ export default {
 
 .selected {
   border: 2px solid rgba(0,108,255);
+}
+
+.DynamicDraw{
+  width:100%;
 }
 .tpl-container {
   cursor: pointer;

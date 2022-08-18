@@ -1,5 +1,5 @@
 <template>
-  <div :style="myStyle" style="position: absolute;" >
+  <div :style="views.style" >
     <p :style="views.textStyle"> {{views.content}}</p>
   </div>
 </template>

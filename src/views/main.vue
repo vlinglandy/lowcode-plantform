@@ -1,10 +1,6 @@
 <template>
   <div class="container">
-      <header class="header">
-        <div class="logo">
-          <img :src="require('@/assets/logo3.png')" alt="">
-        </div>
-      </header>
+      <PageHeader></PageHeader>
       <div class="main">
         <Left></Left>
         <div class="canvas">
@@ -18,7 +14,7 @@
 
 
 <script>
-import '@/assets/index.scss'
+import '@/assets/css/index.scss'
 import Top from './layout/Top.vue'
 import Left from './layout/Left.vue'
 import Center from './layout/Center.vue'
@@ -33,7 +29,7 @@ export default {
       Top,
       Left,
       Right,
-      Center
+      Center,
     },
 }
 </script>
@@ -45,8 +41,10 @@ template{
 }
 .main{
   width: 100%;
-  height: 100%;
+  height: calc(100% - 41px);
   display: flex;
+  position:relative;
+  top: 41px;
 }
 .container{
   width: 100%;
@@ -59,14 +57,9 @@ template{
   position: relative;
   display: flex;
   flex-direction: column;
+  overflow-y: scroll;
 }
-.header{
-  width: 100%;
-  height: 40px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  background: #fff;
-  margin-bottom: 1px;
+.canvas::-webkit-scrollbar{
+  display:none
 }
 </style>

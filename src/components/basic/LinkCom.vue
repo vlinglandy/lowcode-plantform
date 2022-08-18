@@ -8,30 +8,33 @@
 </template>
 
 <script>
-// import bus from '@/router/eventBus.js'
+
 export default {
   props: [
-    'views'
+    'views',
+    'edit'
   ],
   data() {
     return {
-      mode: 'edit'
+      
     }
   },
   methods: {
     linkClick(e) {
-      if (this.mode === 'edit') {//hp更改了跳转函数
-        // e.stopPropagation()
+      if (this.edit) {//hp更改了跳转函数
         e.preventDefault() //编辑模式下阻止跳转，点击时返回属性
       }
-    }
+    },
+    
+  },
+  mounted() {
+
   }
 }
 </script>
 
 <style scope>
 .link {
-  position: absolute;
   text-align: center;
   padding: 1px 10px;
 }

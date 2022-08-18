@@ -1,5 +1,5 @@
 <template>
-    <div :style="myStyle" class="button-com" style="position:absolute;">
+    <div :style="views.style" class="button-com">
      <button type="primary" 
      :style="views.btnStyle" 
      >
@@ -31,7 +31,6 @@ export default {
   background: #00f;
   color: aliceblue;
   margin-top: 5px;
-  position: absolute;
 }
 
 .button-com{

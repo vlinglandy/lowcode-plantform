@@ -14,8 +14,8 @@
     </div>
     <div class="top-right">
       <div class="top-right-operator">
-        <img :src="require('@/assets/ctrl-z.png')" class="show" alt=""  :style="centerStep !== 1?'':'visibility: hidden;'" @click="backOff">
-        <img :src="require('@/assets/ctrl-z.png')" class="show restore opacity" :style="hasMore()?'':'visibility: hidden;'" @click="forward" alt="">
+        <img :src="require('@/assets/ctrl-z.png')" class="show" alt=""  :style="centerStep !== 1?'':'opacity:0.2;'" @click="backOff">
+        <img :src="require('@/assets/ctrl-z.png')" class="show restore" :style="hasMore()?'':'opacity:0.2;'" @click="forward" alt="">
       </div>
       <div class="top-right-function">
         <el-button size="mini" type="danger" v-if="hasSelectEvent" @click="deleteEvent" icon="el-icon-delete"></el-button>
@@ -141,6 +141,9 @@ export default {
   background: rgba(255, 255, 255, 1);
   margin-bottom: 5px;
   border-bottom: 1px solid #eee;
+  position:sticky;
+  z-index:101;
+  top:0px;
   &-left-logo {
     width: 130.8px;
     height: 36px;
@@ -214,8 +217,9 @@ export default {
   opacity: 0.5;
 }
 
-.opacity{
-  opacity: 0.2;
+.show:hover{
+  opacity: 0.6;
+  cursor: pointer;
 }
 
 </style>

@@ -1,7 +1,7 @@
 
 
 
-export function exportHtml(views){
+export function exportHtmlHandle(views){
     console.log(views);
     // 获取基本html默认的dom
 

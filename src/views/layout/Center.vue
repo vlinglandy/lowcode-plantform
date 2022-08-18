@@ -2,62 +2,34 @@
   <div class="center" @click="showMainBtn" :class="{phoneSize:isPhone,mainBtn:showButton && edit}" @dragover="dropover" @drop.stop="drop">
     <!-- 展示中间按钮 -->
     <CenterButton style="z-index:100;" @click.stop.native="addFlexBox" v-if="showButton && edit"></CenterButton>
-    <div
-      class="block"
-      v-for="(view, index) in views"
-      :key="view.id"
-      @dragstart.stop="dragstart(view, index)"
-    >
-      <div @click.stop="select(index,view)" @dragenter.stop="dragenterLight($event,view)" class="tpl-container">
-        <component
-          :comContent="view.comContent"
-          :views="view"
-          :draggable="edit && view.component!='FlexBox'"
-          :class="{componenthover:edit, selected:index == currentIndex && edit && view == currentCom}"
-          :myStyle="view.style"
-          :is="view.component"
-          :edit="edit"
-          :centerCom="centerCom"
-          :currentCom="currentCom"
-        >
-        </component>
-      </div>
-    </div>
-    <el-dialog
-      title="提示"
-      :visible.sync="dialogVisible"
-      width="30%"
-      v-if="edit"
-      style="z-index:100;"
-    >
-      <span>确定删除这个组件吗</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click.stop="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click.stop="delCom"
-          >确 定</el-button
-        >
-      </span>
-    </el-dialog>
+    <!-- 将需要读取的变量通通传递，只提供自定义事件修改变量 -->
+    <PowerfulDynamicDraw 
+      :centerCom="centerCom"
+      :currentCom="currentCom"
+      :edit="edit"
+      :views="views"
+      :currentIndex="currentIndex"
+      class="DynamicDraw"
+      @selectEvent="select"
+      @dragstartEvent="dragstart"
+      ></PowerfulDynamicDraw>
+    <DeleteDialog :dialogVisible.sync="dialogVisible" :edit="edit" @delComEvent="delCom"></DeleteDialog>
     <a class="target" ref="link" href="" target="_blank" v-show="false"></a>
   </div>
 </template>
 
 <script>
-import CenterButton from "@/components/button/CenterButton.vue"
-import {nanoid} from 'nanoid';
-import commonData from '@/utils/commonData.js'//改动
-import {dataFormat} from '@/utils/dataFormat.js'
-import {deepClone} from '@/utils/deepClone.js'
-import {exportHtml} from '@/utils/exportHtml.js'
+import '@/assets/css/componentBox.scss'
+import { nanoid } from 'nanoid';
+import commonData from '@/data/commonData.js'//改动
+import { dataFormat } from '@/utils/dataFormat.js'
+import { deepClone } from '@/utils/deepClone.js'
 import FileSaver from 'file-saver'
-import ButtonCom from "@/components/ButtonCom.vue"
-import ImgCom from "@/components/ImgCom.vue"
-import LinkCom from "@/components/LinkCom.vue"
-import TextCom from "@/components/TextCom.vue"
-import VideoCom from "@/components/VideoCom.vue"
+import { eventHandle } from './handle/centerEvent.js'
 export default {
   data() {
     return {
+      pattern: 'absolute',// 自由/相对/静态定位模式
       showButton:true,
       edit: true,// 编辑模式false为预览模式
       isPhone: false,
@@ -73,113 +45,16 @@ export default {
     };
   },
   mounted() {
-    //后退
-    this.$bus.$on("backOff",() => {
-      this.step = this.step - 1
-      this.views = JSON.parse(sessionStorage.getItem(String(--this.step))) 
-      console.log('后退到',this.step)
-    })
-    //前进
-    this.$bus.$on("forward",() => {
-      this.views = JSON.parse(sessionStorage.getItem(String(this.step))) 
-      console.log('前进到',this.step)
-    })
-    // 判定为非中间组件
-    this.$bus.$on("offCenter",() => {
-      this.centerCom = false
-    })
-    // 判定为中间组件
-    this.$bus.$on("onCenter",() => {
-      this.centerCom = true
-    })
-    // 更新当前要修改的views和index
-    this.$bus.$on("refreshCurrentViews",(views,index) => {
-      this.currentViews = views
-      this.currentViewsIndex = index
-    })
-    // 核心删除
-    this.$bus.$on("rootDelete",() => {
-      this.rootDelete()
-    })
-    // 保存json接收
-    this.$bus.$on("saveJson",() => {
-      this.getJson();
-    })
-    // 导入json事件接收inputJson
-    this.$bus.$on("inputJson",(data) => {
-      this.views = data
-    })
-    // 转换pc事件
-    this.$bus.$on("toPc",() => {
-      this.isPhone = false
-    })
-    // 转换phone事件
-    this.$bus.$on("toPhone",() => {
-      this.isPhone = true
-    })
-    // 切换编辑/预览状态
-    this.$bus.$on("switchState",()=>{
-      this.$bus.$emit("clearFocus")
-      this.edit = !this.edit
-    })
-    // 发布事件
-    this.$bus.$on("release",()=>{
-      console.log("发布页面");
-      localStorage.setItem("views",JSON.stringify(this.views))
-      let target = this.$refs.link
-      target.setAttribute('href', window.location.origin + '/release')
-      // target.click((e)=>e.stopPropagation())
-      window.open(target.href)
-    })
-    // 清除被点击样式
-    this.$bus.$on("clearFocus",()=>{
-      this.showButton=false
-      for(let i=0;i<this.views.length;i++){
-        this.views[i].focus=false
-        if(this.views[i].children){
-          for(let j=0; j< this.views[i].children.length;j++){
-            this.views[i].children[j].focus=false
-          }
-        }
-      }
-    })
-    this.$bus.$on('sendDeleteIndex',(index)=>{
-      this.currentIndex = index
-    })
-    // 子组件添加弹性盒子
-    this.$bus.$on("sonAddFlexBox",(data)=>{
-      console.log(this.views);
-      let num = data.children.length > 0 ? 1 : 2;
-      var newData;
-      for(let i = 0;i < num ;i++){
-        newData = deepClone(commonData['Node'])
-        // 数据统一处理
-        newData.id = nanoid();
-        // newData.comContent = commonData[data]//改定
-        data.children.push(newData);
-      }
-      console.log("添加儿子");
-      console.log(this.views);
-      // 激活向右发送数据事件
-      this.$bus.$emit('views',newData);
-    })
-    this.$bus.$on("showDeleteDialog",()=>{
-      if(this.edit)this.dialogVisible = true
-    })
-    // 更新当前拖拽选中的组件为中心组件
-    this.$bus.$on("refreshCurrentCom",(data)=>{
-      this.centerCom = data
-    })
-    // 更新当前拖拽选中的组件
-    this.$bus.$on("updateCurrentCom",(data)=>{
-      console.log("激活了事件了啊，修改view");
-      this.currentCom = data
-      console.log(this.currentCom);
-   })
-    // 导出html
-    this.$bus.$on("exportHtml",()=>{
-      this.exportHtml()
-    })  
+    // 核心功能注册
+                  // 保存json | 撤销  |   重做  |  重置中央变量 | 更新当前选中的views 
+    eventHandle(['saveJson','backOff','forward','onCenter','refreshCurrentViews',
+                  // 核心删除  |  导入json | 转换pc | 转换手机 | 预览/编辑  | 发布页面
+                  'rootDelete','inputJson','toPc','toPhone','switchState','release',
+                  // 清除选中状态 | 发送要被删除的索引 | 给盒子添加儿子 | 展示删除框
+                  'clearFocus','sendDeleteIndex','sonAddFlexBox','showDeleteDialog',
+                  // 更新中心变量   |   更新当前选中组件 | 导出Html  |  关闭中心变量
+                  'refreshCurrentCom','updateCurrentCom','exportHtml','offCenter'],this)
+    
   },
   methods: {
     //删除组件
@@ -212,29 +87,24 @@ export default {
       this.$bus.$emit('views',view);
       
     },
-    dragstart(view, index) {
-      this.$bus.$emit("clearFocus")
-      this.$bus.$emit("refreshCurrentViews",this.views,index)
-      this.centerCom = true;
-      this.currentCom = this.views[index];
-    },
-    // 组件拖拽时悬浮时高亮
-    dragenterLight(e,view){
-      e.preventDefault();
-      this.$bus.$emit("clearFocus")
-      view.focus = true
+    transformData(data, e ,ComX ,ComY ,callback){
+      if(this.pattern != 'static'){
+        data.style.left = e.offsetX - ComX + "px";
+        data.style.top = e.offsetY -ComY + "px";
+      }
+      if(data.component != 'FlexBox')data.style.position = this.pattern;// 切换定位模式
+      this.views.push(data);
+      if(callback)callback(data);
     },
     drop(e) {
-      console.log("=========drop========");
       e.preventDefault();
+      var ComX=e.dataTransfer.getData('comOffsetX')
+      var ComY=e.dataTransfer.getData('comOffsetY')
       this.$bus.$emit("clearFocus")
       if (this.centerCom && this.edit) {
         if(this.currentCom.component == 'FlexBox')return //如果拖动的是弹性盒子就阻止
-        console.log("在画布中的组件");
-        this.currentCom.style.left = e.offsetX + "px";
-        this.currentCom.style.top = e.offsetY + "px";
+        this.transformData(this.currentCom,e,ComX,ComY)
         this.centerCom = false;
-        this.views.push(this.currentCom);
         this.rootDelete()
       }else{
         var data = e.dataTransfer.getData("attr");
@@ -244,12 +114,11 @@ export default {
         newData = dataFormat(data,newData);
         // 数据统一处理
         newData.id = nanoid();
-        newData.style.left = e.offsetX + "px";
-        newData.style.top = e.offsetY + "px";
-        // newData.comContent = commonData[data]//改定
-        this.views.push(newData);
-        // 激活向右发送数据事件
-        this.$bus.$emit('views',newData);
+        this.transformData(newData, e ,ComX,ComY, (res)=>{
+          // 激活向右发送数据事件
+          this.$bus.$emit('views',res);
+        });
+        
       }
       
     },
@@ -266,6 +135,14 @@ export default {
     cleanSendView(){
       this.$bus.$emit("cleanView")
     },
+    dragstart(view, index,e) {
+      this.$bus.$emit("clearFocus")
+      this.$bus.$emit("refreshCurrentViews",this.views,index)
+      e.dataTransfer.setData('comOffsetY',e.offsetY)//8.18hp修改预先存储鼠标相对组件位置
+      e.dataTransfer.setData('comOffsetX',e.offsetX)
+      this.centerCom = true;
+      this.currentCom = this.views[index];
+    },
     showMainBtn(e){
       e.preventDefault()
       this.$bus.$emit("clearFocus")
@@ -273,7 +150,6 @@ export default {
     },
     // 向各个方向添加盒子
     addFlexBox(){
-      console.log("添加弹性盒子");
       var newData = deepClone(commonData['FlexBox'])
       // 数据统一处理
       newData.id = nanoid();
@@ -281,10 +157,6 @@ export default {
       this.views.push(newData);
       // 激活向右发送数据事件
       this.$bus.$emit('views',newData);
-    },
-    // 导出html
-    exportHtml(){
-      exportHtml(this.views)
     },
     // 如果两个值是不是除了focus之外其他都一样
     judgeTwoValueIsEqual (objA, objB) {
@@ -355,29 +227,21 @@ export default {
     }
   },
   components: {
-    ButtonCom,
-    ImgCom,
-    LinkCom,
-    TextCom,
-    VideoCom,
-    CenterButton
+
   },
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
-.block{
-  box-sizing: border-box;
-  width: 100%;
-}
+
 .center {
   margin: 5px 10px 0 10px;
   position: relative;
   height: 100%;
   box-sizing: border-box;
   box-shadow: 0 0 20px #ccc;
-  overflow: scroll;
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -399,6 +263,7 @@ export default {
     border: 2px solid #06c;
     opacity: 0.5;
     z-index: 2;
+    height:calc(100% - 45px);
 }
 .pcSize {
   width: 100%;

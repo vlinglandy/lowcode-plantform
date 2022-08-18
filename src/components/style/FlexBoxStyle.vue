@@ -54,19 +54,20 @@
     <el-input v-model="views.style.position"></el-input> -->
 
 
-
+<!--8.18 hp更改(以下) -->
   <div class="margin-container">
-        <div class="borderTop"><input placeholder="0" maxlength="3" v-model="views.style.marginTop"></div>
-        <div class="borderBt"><input  placeholder="0" maxlength="3" v-model="views.style.marginBottom"></div>
-        <div class="borderLf"><input  placeholder="0" maxlength="3" v-model="views.style.marginLeft"></div>
-        <div class="borderRt"><input  placeholder="0" maxlength="3" v-model="views.style.marginRight"></div>
+        <div class="borderTop"><input placeholder="0"  :value="views.style.marginTop.replace('px','')"  @input="views.style.marginTop=$event.target.value+'px'"></div>
+        <div class="borderBt"><input  placeholder="0"  :value="views.style.marginBottom.replace('px','')"  @input="views.style.marginBottom=$event.target.value+'px'"></div>
+        <div class="borderLf"><input  placeholder="0"  :value="views.style.marginLeft.replace('px','')"  @input="views.style.marginLeft=$event.target.value+'px'"></div>
+        <div class="borderRt"><input  placeholder="0"  :value="views.style.marginRight.replace('px','')"  @input="views.style.marginRight=$event.target.value+'px'"></div>
         <div class="padding-containner">
-            <div class="borderTop"><input placeholder="0" maxlength="3" v-model="views.style.paddingTop"></div>
-            <div class="borderBt"><input  placeholder="0" maxlength="3" v-model="views.style.paddingBottom"></div>
-            <div class="borderLf"><input  placeholder="0" maxlength="3" v-model="views.style.paddingLeft"></div>
-            <div class="borderRt"><input  placeholder="0" maxlength="3" v-model="views.style.paddingRight"></div>
+            <div class="borderTop"><input placeholder="0" :value="views.style.paddingTop.replace('px','')"  @input="views.style.paddingTop=$event.target.value+'px'"></div>
+            <div class="borderBt"><input  placeholder="0" :value="views.style.paddingBottom.replace('px','')"  @input="views.style.paddingBottom=$event.target.value+'px'"></div>
+            <div class="borderLf"><input  placeholder="0" :value="views.style.paddingLeft.replace('px','')"  @input="views.style.paddingLeft=$event.target.value+'px'"></div>
+            <div class="borderRt"><input  placeholder="0" :value="views.style.paddingRight.replace('px','')"  @input="views.style.paddingRight=$event.target.value+'px'"></div>
         </div>
     </div>
+<!--8.18 hp更改(以上) -->
 
 
  <div class='module'>边框</div>
@@ -75,7 +76,8 @@
       <el-color-picker size="mini" v-model="views.style.borderColor" show-alpha></el-color-picker>
     </div>
     <div class='right-line'>
-      <div class="label">BoxSizing</div>
+      <!--8.18 hp更改(以下一行) -->
+      <div class="label" style="padding-top:4px">BoxSizing</div>
       <el-radio-group v-model="views.style.boxSizing" size="mini">
       <el-radio-button label="content-box">content</el-radio-button>
       <el-radio-button label="border-box">border</el-radio-button>
@@ -96,15 +98,23 @@
     </el-radio-group>
     </div>
 
+    <!--8.18 hp更改 (以下)-->
      <div class='lineBox'>
       <div class="label">边框宽度</div>
-      <input v-model="views.style.borderWidth">
+      <div class="inputLine" >
+      <input :value="views.style.borderWidth.replace('px','')" @input="views.style.borderWidth=$event.target.value+'px'" autocomplete="off" placeholder="0">
+      <span>px</span>
+      </div>
     </div>
 
     <div class='lineBox'>
       <div class="label">边框圆角</div>
-     <input v-model="views.style.borderRadius">
+     <div class="inputLine" >
+      <input :value="views.style.borderRadius.replace('px','')" @input="views.style.borderRadius=$event.target.value+'px'" autocomplete="off">
+      <span>px</span>
+      </div>
     </div>
+<!--8.18 hp更改 (以上)-->
     <!-- lineHeight
     <el-input v-model="views.style.lineHeight"></el-input> -->
     
@@ -126,44 +136,45 @@ export default {
   width:100%;
   height:36px;
   margin-top:3px;
-  background-color:rgb(242, 243, 245);
+  background-color:rgb(219, 226, 242);
   text-align:left;
   font-weight:700;
   text-indent:1em;
   line-height:36px
 }
-
+// 8.18 hp更改样式(以下)
 .right-line{
   display: flex;
   margin: 20px 12px;
   width: 100%;
   font-size: 14px;
-  /* align-items:center; */
-  
-}
-.el-radio-group{
-  display: flex;
-  width: 60%;
-  flex-wrap:wrap;
-  justify-content:flex-start;
-}
-.el-radio-group .el-radio-button__inner{
-  text-align: center;
-   width: 54px;
-   margin:1px 0;
-   padding: 7px 0;
-   border-radius:0!important;
-   border: 1px solid #DCDFE6;
-  
-}
-.right-line .label {
+  .rlabel {
   width: 70px;
   height: 100%;
   padding-top:3px;
   text-align: left;
   align-items: center;
 }
+  .el-radio-group{
+  display: flex;
+  width: 60%;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+   border-radius:0 !important;
+  
+} 
+}
 
+.el-radio-group ::v-deep .el-radio-button__inner{
+  text-align: center;
+   width: 50px;
+   margin-right:1px;
+   padding: 7px 0;
+   border-radius:0;
+   border: 1px solid #DCDFE6;
+   box-shadow:none !important;
+}
+//---8.18 hp更改样式(以上)
 .margin-container {
         position: relative;
         margin-left:15px;       

@@ -1,5 +1,5 @@
 <template>
-  <div style="position: absolute;" :style="views.style">
+  <div :style="views.style">
     <video id="video" ref="video" :style="views.videoStyle" class="video-js vjs-default-skin vjs-big-play-centered"  :src="videoSrc" controls>
       <source :src="videoSrc" />
     </video>

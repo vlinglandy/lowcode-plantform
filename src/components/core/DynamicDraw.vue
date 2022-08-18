@@ -1,12 +1,13 @@
 <template>
-  <div :style="myStyle">
+  <div :style="flexStyle">
     <div
-      class="block"
+      class="block tpl-container "
       v-for="(view, index) in views"
       :key="view.id"
       @dragstart.stop="dragstart(view, index)"
+      @click.stop="select(index,view)"
+      :style="{width:view.style.width,height:view.style.height,position:view.style.position,}"
     >
-      <div @click.stop="select(index,view)" class="tpl-container">
         <component
           :comContent="view.comContent"
           :views="view"
@@ -14,26 +15,24 @@
           :class="{componenthover:edit, selected:index == currentIndex && edit}"
           :myStyle="view.style"
           :is="view.component"
+          :edit="edit"
         >
         </component>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import ButtonCom from "@/components/ButtonCom.vue"
-import ImgCom from "@/components/ImgCom.vue"
-import LinkCom from "@/components/LinkCom.vue"
-import TextCom from "@/components/TextCom.vue"
-import VideoCom from "@/components/VideoCom.vue"
+import '@/assets/css/componentBox.scss'
 export default {
   name:'DynamicDraw',
   props: [
     'myStyle',
     'views',
     'edit',
-    "currentCom"
+    "currentCom",
+    'flexStyle',
+    'flexFocus'
   ],
   data() {
     return {
@@ -77,19 +76,36 @@ export default {
     },
   },
   components: {
-    ButtonCom,
-    ImgCom,
-    LinkCom,
-    TextCom,
-    VideoCom
   },
 }
 </script>
 
-<style scope>
+<style lang="scss" scope>
+.showBorder{
+  border: 1px dashed #06c;
+  width: 100%;
+}
 .selected {
   /*hp修正点击组件因增加边框而偏移*/
   border: 1px solid rgba(0, 108, 255) !important
+}
+
+.flex{
+  display: flex;
+  width:100%;
+  height: 100%;
+}
+
+.mask{
+  position: absolute;
+  left: 0;
+  top: 0px;
+  bottom: 0;
+  right: 0;
+  background-color: #baf8ff;
+  border: 2px solid #06c;
+  opacity: 0.5;
+  z-index: 10;
 }
 
 .component-hover {

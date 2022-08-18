@@ -43,6 +43,5 @@ export default {
   line-height: 50px;
   background: grey;
   color: aliceblue;
-  position: absolute;
 }
 </style>

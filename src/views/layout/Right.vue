@@ -20,18 +20,7 @@
 
 
 <script>
-import ButtonProp from '@/components/property/ButtonProp.vue'
-import ImgProp from '@/components/property/ImgProp.vue'
-import LinkProp from '@/components/property/LinkProp.vue'
-import TextProp from '@/components/property/TextProp.vue'
-import VideoProp from '@/components/property/VideoProp.vue'
-import ButtonStyle from '@/components/style/ButtonStyle.vue'
-import ImgStyle from '@/components/style/ImgStyle.vue'
-import LinkStyle from '@/components/style/LinkStyle.vue'
-import TextStyle from '@/components/style/TextStyle.vue'
-import VideoStyle from '@/components/style/VideoStyle.vue'
-import FlexBoxStyle from '@/components/style/FlexBoxStyle.vue'
-import FlexBoxProp from '@/components/property/FlexBoxProp.vue'
+
 export default {
   data() {
     return {
@@ -70,18 +59,6 @@ export default {
     upload() {},
   },
   components: {
-    ButtonProp,
-    ImgProp,
-    LinkProp,
-    TextProp,
-    VideoProp,
-    ButtonStyle,
-    ImgStyle,
-    LinkStyle,
-    TextStyle,
-    VideoStyle,
-    FlexBoxStyle,
-    FlexBoxProp
   },
 };
 </script>
@@ -99,6 +76,15 @@ export default {
   align-items: flex-start;
   justify-content: flex-start;
   box-sizing: border-box;
+   /* 8.18hp修改(以下) 禁用文字选中 */
+   -o-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+  z-index: 99;
+  // 8.18hp修改(以上)
   &-describ {
     height: 25px;
     display: flex;
@@ -107,8 +93,10 @@ export default {
     color: #aaa;
     align-items: center;
   }
-  &-main{
-    overflow-y: scroll;
+  &-main{//8.18 hp修改修正滚动条显示
+    height:100%;
+    overflow-y: auto;
+    overflow-x:hidden;
   }
   &-describ img {
     width: 15px;
@@ -131,6 +119,7 @@ export default {
       justify-content: center;
       align-items: center;
       height: 100%;
+      border-bottom: 2px solid transparent;//8.18 hp修改点击偏移
     }
     &-two {
       width: 100%;
@@ -138,6 +127,7 @@ export default {
       justify-content: center;
       align-items: center;
       height: 100%;
+      border-bottom: 2px solid transparent;//8.18 hp修改点击偏移
     }
   }
 }
