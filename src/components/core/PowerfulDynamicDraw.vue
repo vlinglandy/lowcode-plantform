@@ -1,28 +1,25 @@
 <template>
   <div>
-    <div
-    class="block"
-    v-for="(view, index) in views"
-    :key="view.id"
-    @dragstart.stop="dragstart(view, index,$event)"
-    :style="{width:view.style.width,height:view.style.height,position:view.style.position}"
-  >
       <component
+        class="block tpl-container"
+        v-for="(view, index) in views"
+        :key="view.id"
+        @dragstart.native.stop="dragstart(view, index,$event)"
+        :style="{width:view.style.width,height:view.style.height}"
         :comContent="view.comContent"
         :views="view"
-        :draggable="edit && view.component!='FlexBox'"
+        :draggable="edit"
         :class="{componenthover:edit, selected:index == currentIndex && edit && view == currentCom}"
         :myStyle="view.style"
         :is="view.component"
         :edit="edit"
         :centerCom="centerCom"
+        :pattern="pattern"
         :currentCom="currentCom"
         @click.native.stop="select(index,view)"
         @dragenter.native.stop="dragenterLight($event,view)"
-        class="tpl-container"
-      >
-      </component>
-    </div>
+    >
+    </component>
   </div>
 </template>
 
@@ -36,6 +33,7 @@ export default {
     'currentIndex',
     'currentCom',
     'centerCom',
+    'pattern'
   ],
   data() {
     return {

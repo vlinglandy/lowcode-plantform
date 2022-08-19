@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import {
-	Button, Image, Link, Dialog, Input,Slider,
+	Button, Image, Link, Dialog, Input,Slider,Checkbox,Loading,
 	Switch, InputNumber, Option, Select,ColorPicker,RadioGroup,RadioButton
 } from "element-ui"
 import 'element-ui/lib/theme-chalk/index.css';
@@ -33,6 +33,8 @@ Vue.use(Select)
 Vue.use(ColorPicker)
 Vue.use(RadioGroup)
 Vue.use(RadioButton)
+Vue.use(Checkbox)
+Vue.use(Loading)
 Vue.config.productionTip = false
 
 // 注册自定义组件

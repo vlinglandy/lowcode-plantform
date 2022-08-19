@@ -19,7 +19,7 @@
       </div>
       <div class="top-right-function">
         <el-button size="mini" type="danger" v-if="hasSelectEvent" @click="deleteEvent" icon="el-icon-delete"></el-button>
-        <el-button size="mini" @click="exportHtml">导出html</el-button>
+        <el-button  border size="mini" @click="absolute = !absolute" :type="absolute?'info':''">{{absolute?'绝对定位':'静态定位'}}</el-button>
         <el-button size="mini" @click="sendSaveJsonEvent">导出json</el-button>
         <el-button size="mini" @click="$refs.file.click()">导入json</el-button>
         <el-button size="mini" @click="switchState" type="primary">{{edit?'预览':'编辑'}}</el-button>
@@ -46,7 +46,8 @@ export default {
         isPC: true,
         edit:true,
         centerStep:1,
-        hasSelectEvent: false
+        hasSelectEvent: false,
+        absolute:false
       }
     },
     mounted(){
@@ -124,6 +125,14 @@ export default {
       // 发布页面
       release() {
         this.$bus.$emit("release")
+      }
+    },
+    watch:{
+      absolute:{
+        immediate:true,
+        handler(newVal){
+          this.$bus.$emit("switchPattern",newVal)
+        }
       }
     }
 }

@@ -64,6 +64,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.right-main::-webkit-scrollbar{
+  display:none
+}
 .right {
   width: 300px;
   height: 100%;

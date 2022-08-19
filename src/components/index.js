@@ -20,6 +20,7 @@ import LinkCom from '@/components/basic/LinkCom'
 import TextCom from '@/components/basic/TextCom'
 import VideoCom from '@/components/basic/VideoCom'
 import DeleteDialog from '@/components/global/DeleteDialog'
+import ReleaseDialog from '@/components/global/ReleaseDialog'
 
 // 动态渲染
 import DynamicDraw from '@/components/core/DynamicDraw'
@@ -53,6 +54,7 @@ export default {
         Vue.component('FlexBoxStyle',FlexBoxStyle)
         Vue.component('CommonStyle',CommonStyle)
         Vue.component('DeleteDialog',DeleteDialog)
+        Vue.component('ReleaseDialog',ReleaseDialog)
         Vue.component('PowerfulDynamicDraw',PowerfulDynamicDraw)
         Vue.component('DynamicDraw',DynamicDraw)
         Vue.component('SingleDraw',SingleDraw)

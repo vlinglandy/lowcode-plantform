@@ -12,8 +12,10 @@
       class="DynamicDraw"
       @selectEvent="select"
       @dragstartEvent="dragstart"
+      :pattern="pattern"
       ></PowerfulDynamicDraw>
-    <DeleteDialog :dialogVisible.sync="dialogVisible" :edit="edit" @delComEvent="delCom"></DeleteDialog>
+    <DeleteDialog :dialogVisible.sync="dialogVisible" :edit="edit" @delComEvent="delCom" />
+    <ReleaseDialog :releaseVisiable.sync="releaseVisiable" :views="views"/>
     <a class="target" ref="link" href="" target="_blank" v-show="false"></a>
   </div>
 </template>
@@ -30,6 +32,7 @@ export default {
   data() {
     return {
       pattern: 'static',// 自由/相对/静态定位模式
+      releaseVisiable: false,
       showButton:true,
       edit: true,// 编辑模式false为预览模式
       isPhone: false,
@@ -52,8 +55,8 @@ export default {
                   'rootDelete','inputJson','toPc','toPhone','switchState','release',
                   // 清除选中状态 | 发送要被删除的索引 | 给盒子添加儿子 | 展示删除框
                   'clearFocus','sendDeleteIndex','sonAddFlexBox','showDeleteDialog',
-                  // 更新中心变量   |   更新当前选中组件 | 导出Html  |  关闭中心变量
-                  'refreshCurrentCom','updateCurrentCom','exportHtml','offCenter'],this)
+                  // 更新中心变量   |   更新当前选中组件 | 导出Html  |  关闭中心变量  |  切换静态/绝对定位
+                  'refreshCurrentCom','updateCurrentCom','exportHtml','offCenter' , 'switchPattern'],this)
     
   },
   methods: {
@@ -197,9 +200,12 @@ export default {
        handler(newValue,oldVal){
         if(!newValue || !oldVal) return 
         if(this.judgeTwoValueIsEqual(newValue,oldVal)) return 
+        console.log("新旧值")
+        console.log(newValue)
+        console.log(oldVal)
         if(this.step==1){
           //当为初始状态时
-          sessionStorage.setItem(String(this.step),JSON.stringify([]))
+          sessionStorage.setItem(String(this.step),JSON.stringify([newValue]))
         }else{
           sessionStorage.setItem(String(this.step),JSON.stringify(newValue))
         }

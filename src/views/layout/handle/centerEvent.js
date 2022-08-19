@@ -25,6 +25,7 @@ export function eventHandle(eventArr,that){
             case 'updateCurrentCom' : updateCurrentCom(that);break;
             case 'exportHtml' : exportHtml(that);break;
             case 'showDeleteDialog' : showDeleteDialog(that);break;
+            case 'switchPattern' : switchPattern(that);break;
         }
     }
 }
@@ -33,6 +34,13 @@ function saveJson(that){
     // 保存json接收
     that.$bus.$on("saveJson",() => {
         that.getJson();
+    })
+}
+
+function switchPattern(that){
+    // 保存json接收
+    that.$bus.$on("switchPattern",(bool) => {
+        that.pattern = bool ? 'absolute' : 'static'
     })
 }
 
@@ -45,9 +53,11 @@ function showDeleteDialog(that){
 function backOff(that){
     //后退
     that.$bus.$on("backOff",() => {
+      if(that.step > 1){
         that.step = that.step - 1
         that.views = JSON.parse(sessionStorage.getItem(String(--that.step))) 
         console.log('后退到',that.step)
+      }
     })
 }
 function rootDelete(that){
@@ -109,6 +119,8 @@ function switchState(that){
   that.$bus.$on("switchState",()=>{
     that.$bus.$emit("clearFocus")
     that.edit = !that.edit
+    if(!that.edit)localStorage.setItem("views",JSON.stringify(that.views))
+    that.releaseVisiable = !that.releaseVisiable
   })
 }
 
@@ -128,16 +140,19 @@ function clearFocus(that){
   // 清除被点击样式
   that.$bus.$on("clearFocus",()=>{
     that.showButton=false
-    for(let i=0;i<that.views.length;i++){
-      that.views[i].focus=false
-      if(that.views[i].children){
-        for(let j=0; j< that.views[i].children.length;j++){
-          that.views[i].children[j].focus=false
-        }
-      }
-    }
+    clearFocusHandle(that.views)
   })
 }
+
+function clearFocusHandle(arr){
+  for(let i=0;i<arr.length;i++){
+    arr[i].focus = false;
+    if(arr[i].children){
+      clearFocusHandle(arr[i].children)
+    }
+  }
+}
+
 
 function sendDeleteIndex(that){
     that.$bus.$on('sendDeleteIndex',(index)=>{
@@ -152,11 +167,11 @@ function sonAddFlexBox(that){
         let num = data.children.length > 0 ? 1 : 2;
         var newData;
         for(let i = 0;i < num ;i++){
-        newData = deepClone(commonData['Node'])
-        // 数据统一处理
-        newData.id = nanoid();
-        // newData.comContent = commonData[data]//改定
-        data.children.push(newData);
+          newData = deepClone(commonData['FlexBox'])
+          // 数据统一处理
+          newData.id = nanoid();
+          // newData.comContent = commonData[data]//改定
+          data.children.push(newData);
         }
         console.log("添加儿子");
         console.log(that.views);

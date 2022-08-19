@@ -6,6 +6,7 @@
       width="30%"
       v-if="edit"
       style="z-index:100;"
+      :show-close="false"
     >
       <span>确定删除这个组件吗</span>
       <span slot="footer" class="dialog-footer">

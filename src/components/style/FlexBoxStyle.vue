@@ -2,45 +2,45 @@
 
   <div>
     <div class='module'>布局</div>
-     <div class='lineBox'>
+     <div class='lineBox border smaller'>
       <div class="label">背景颜色</div>
       <el-color-picker size="mini" v-model="views.style.backgroundColor" show-alpha></el-color-picker>
     </div>
 
-    <div class='right-line'>
+    <div class='right-line border'>
       <div class="label">主轴方向</div>
-      <el-radio-group v-model="views.style.flexDirection" size="mini">
-      <el-radio-button label="row">row</el-radio-button>
-      <el-radio-button label="cloumn">col</el-radio-button>
-    </el-radio-group>
+        <el-radio-group v-model="views.style.flexDirection" size="mini">
+        <el-radio-button label="row">横向</el-radio-button>
+        <el-radio-button label="column">竖向</el-radio-button>
+      </el-radio-group>
     </div>
 
-    <div class='right-line'>
+    <div class='right-line border'>
       <div class="label">主轴对齐</div>
       <el-radio-group v-model="views.style.justifyContent" size="mini">
-      <el-radio-button label="flex-start">Left</el-radio-button>
-      <el-radio-button label="center">Center</el-radio-button>
-      <el-radio-button label="flex-end">Right</el-radio-button>
-      <el-radio-button label="space-around">Around</el-radio-button>
-      <el-radio-button label="space-between">Between</el-radio-button>
+      <el-radio-button label="flex-start">左</el-radio-button>
+      <el-radio-button label="center">中</el-radio-button>
+      <el-radio-button label="flex-end">右</el-radio-button>
+      <el-radio-button label="space-around">均匀</el-radio-button>
+      <el-radio-button label="space-between">两侧</el-radio-button>
     </el-radio-group>
     </div>
   
-    <div class='right-line'>
+    <div class='right-line border'>
       <div class="label">侧轴对齐</div>
       <el-radio-group v-model="views.style.alignItems" size="mini">
-      <el-radio-button label="flex-start">Top</el-radio-button>
-      <el-radio-button label="center">Center</el-radio-button>
-      <el-radio-button label="flex-end">Buttom</el-radio-button>
-      <el-radio-button label="space-around">Around</el-radio-button>
-      <el-radio-button label="space-between">Between</el-radio-button>
+      <el-radio-button label="flex-start">上</el-radio-button>
+      <el-radio-button label="center">中</el-radio-button>
+      <el-radio-button label="flex-end">下</el-radio-button>
+      <el-radio-button label="space-around">均匀</el-radio-button>
+      <el-radio-button label="space-between">两侧</el-radio-button>
     </el-radio-group>
     </div>
-    <div class='right-line'>
+    <div class='right-line border'>
       <div class="label">换行</div>
       <el-radio-group v-model="views.style.flexWrap" size="mini">
-      <el-radio-button label="warp">warp</el-radio-button>
-      <el-radio-button label="nowarp">nowarp</el-radio-button>
+      <el-radio-button label="warp">换行</el-radio-button>
+      <el-radio-button label="nowarp">不换行</el-radio-button>
       
     </el-radio-group>
     </div>
@@ -52,10 +52,13 @@
   
     <!-- position
     <el-input v-model="views.style.position"></el-input> -->
-
-
+    <div class='right-line'>
+      <div class='label'>边距</div>
+    </div>
+  
 <!--8.18 hp更改(以下) -->
   <div class="margin-container">
+    
         <div class="borderTop"><input placeholder="0"  :value="views.style.marginTop.replace('px','')"  @input="views.style.marginTop=$event.target.value+'px'"></div>
         <div class="borderBt"><input  placeholder="0"  :value="views.style.marginBottom.replace('px','')"  @input="views.style.marginBottom=$event.target.value+'px'"></div>
         <div class="borderLf"><input  placeholder="0"  :value="views.style.marginLeft.replace('px','')"  @input="views.style.marginLeft=$event.target.value+'px'"></div>
@@ -71,11 +74,11 @@
 
 
  <div class='module'>边框</div>
-  <div class='lineBox'>
+  <div class='lineBox border smaller'>
       <div class="label">边框颜色</div>
       <el-color-picker size="mini" v-model="views.style.borderColor" show-alpha></el-color-picker>
     </div>
-    <div class='right-line'>
+    <div class='right-line border'>
       <!--8.18 hp更改(以下一行) -->
       <div class="label" style="padding-top:4px">BoxSizing</div>
       <el-radio-group v-model="views.style.boxSizing" size="mini">
@@ -89,7 +92,7 @@
     <el-input v-model="views.style.top"></el-input> -->
 
 
-    <div class='right-line'>
+    <div class='right-line border'>
       <div class="label">边框样式</div>
       <el-radio-group v-model="views.style.borderStyle" size="mini">
       <el-radio-button label="solid">实线</el-radio-button>
@@ -99,7 +102,7 @@
     </div>
 
     <!--8.18 hp更改 (以下)-->
-     <div class='lineBox'>
+     <div class='lineBox border smaller'>
       <div class="label">边框宽度</div>
       <div class="inputLine" >
       <input :value="views.style.borderWidth.replace('px','')" @input="views.style.borderWidth=$event.target.value+'px'" autocomplete="off" placeholder="0">
@@ -107,7 +110,7 @@
       </div>
     </div>
 
-    <div class='lineBox'>
+    <div class='lineBox border smaller'>
       <div class="label">边框圆角</div>
      <div class="inputLine" >
       <input :value="views.style.borderRadius.replace('px','')" @input="views.style.borderRadius=$event.target.value+'px'" autocomplete="off">
@@ -132,10 +135,24 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+// 820秋修改
+.label{
+  font-size: 12px;
+  color: #444;
+}
+.smaller{
+  margin-top:7px;
+  margin-bottom:7px;
+  padding-bottom: 5px;
+}
+.border{
+  border-bottom:1px solid #eee;
+}
 .module{
   width:100%;
-  height:36px;
+  height:26px;
   margin-top:3px;
+  padding-bottom: 5px;
   background-color:rgb(219, 226, 242);
   text-align:left;
   font-weight:700;
@@ -145,7 +162,7 @@ export default {
 // 8.18 hp更改样式(以下)
 .right-line{
   display: flex;
-  margin: 20px 12px;
+  padding: 7px 7px 7px 5px;
   width: 100%;
   font-size: 14px;
   .rlabel {
