@@ -14,7 +14,8 @@ export default {
         linkStyle: {
             height: "50px",
             fontSize: "16px",
-        }
+        },
+        sonStyle:'linkStyle'
     },
     ButtonCom: {
         focus:false,
@@ -30,9 +31,9 @@ export default {
             height:"40px"
         },
         btnStyle: {
-          fontSize: 14,
-          lineHeight: 2,
-          fontWeight: 400,
+          fontSize: "14px",
+          lineHeight: "2px",
+          fontWeight: "400px",
           color: "#FFF",
           backgroundColor: "#409EFF",
           opacity: 1,
@@ -40,6 +41,7 @@ export default {
           width:"75px",
           height:"40px"
         },
+        sonStyle:'btnStyle'
     },
     ImgCom: {
         focus:false,
@@ -58,6 +60,7 @@ export default {
             height: "200px"
         },
         alt: '',
+        sonStyle:'imgStyle'
     },
     TextCom: {
         focus:false,
@@ -72,12 +75,13 @@ export default {
         },
         textStyle: {
             textDecoration: 'none',
-            fontSize: 14,
-            lineHeight: 2,
-            fontWeight: 400,
+            fontSize: "14px",
+            lineHeight: "2px",
+            fontWeight: "400px",
             opacity: 1,
             borderRadius: "3px"
-        }
+        },
+        sonStyle:'textStyle'
     },
     VideoCom: {
         focus:false,
@@ -94,7 +98,8 @@ export default {
         videoStyle:{
           width:"300px",
           height:"200px"
-        }
+        },
+        sonStyle:'videoStyle'
     },
     FlexBox: {
         focus:false,
