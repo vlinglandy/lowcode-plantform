@@ -1,17 +1,19 @@
 <template>
    <div>
     <div class='lineBox'>
-      <div class="label" @click="click">链接</div>
+      <div class="label">链接</div>
       <!-- <div class="srcline"> -->
         <input v-model="views.src">
       <!-- </div> -->
     </div>
-    <!-- <el-upload
-      class="upload-demo"
-      multiple
+    <el-upload
+      action="upload"
+      :on-success="success"
+      :show-file-list="false"
+      :before-upload="beforeUpload"
     >
-      <el-button size="small" type="primary">点击上传</el-button>
-    </el-upload> -->
+      <el-button   size="small" type="primary">点击上传</el-button>
+    </el-upload>
     <div class='lineBox'>
       <div class="label">链接标题</div>
       <input v-model="views.content">
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import { Message } from 'element-ui';
 export default {
   props: ["views"],
   data() {
@@ -29,9 +32,19 @@ export default {
     }
   },
   methods: {
-    click(e) {
-      console.log(this.views.style);
-      console.log(e.target.style);
+    success(response) {
+      this.views.src = 'http://127.0.0.1:3001/'+response.path.slice(7)
+    },
+    beforeUpload(file){
+      const isMP4 = file.type === 'video/mp4';
+      const isLt30M = file.size / 1024 / 1024 < 30;
+       if (!isMP4) {
+          Message.error('上传视频只能是 MP4 格式!');
+        }
+        if (!isLt30M) {
+          Message.error('上传视频大小不能超过 30MB!');
+        }
+        return isMP4 && isLt30M;
     }
   },
 }

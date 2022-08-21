@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import {
 	Button, Image, Link, Dialog, Input,Slider,Checkbox,Loading,
-	Switch, InputNumber, Option, Select,ColorPicker,RadioGroup,RadioButton
+	Switch, InputNumber, Option, Select,ColorPicker,RadioGroup,RadioButton,Upload
 } from "element-ui"
 import 'element-ui/lib/theme-chalk/index.css';
 import router from './router'
@@ -34,6 +34,7 @@ Vue.use(ColorPicker)
 Vue.use(RadioGroup)
 Vue.use(RadioButton)
 Vue.use(Checkbox)
+Vue.use(Upload)
 Vue.use(Loading)
 Vue.config.productionTip = false
 

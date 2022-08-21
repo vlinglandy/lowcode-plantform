@@ -1,6 +1,7 @@
 <template>
   <div :style="views.style">
-    <video id="video" ref="video" :style="views.videoStyle" class="video-js vjs-default-skin vjs-big-play-centered"  :src="videoSrc" controls>
+    <video ref="video"  class="video-js vjs-default-skin vjs-big-play-centered a-video"
+      :src="videoSrc" controls>
       <source :src="videoSrc" />
     </video>
   </div>
@@ -13,7 +14,8 @@ export default {
   data() {
     return {
       player: null, // 用来存储当前 videoS
-      videoSrc:''
+      videoSrc: '',
+      render: true
     };
   },
   mounted() {
@@ -27,18 +29,29 @@ export default {
   },
   watch: {
     'views.src': {
-        deep: true,
-        immediate: true,
-        handler(newVal, oldVal) {
-          console.log(newVal, oldVal)
-          this.videoSrc = newVal
-        },
+      deep: true,
+      immediate: true,
+      handler(newVal) {
+        this.videoSrc = newVal
+      },
+    },
+    'views.videoStyle': {
+      deep: true,
+      handler(newVal, oldVal) {
+        console.log(newVal, oldVal)
+        document.documentElement.style.setProperty('--width', `${newVal.width}`)
+        document.documentElement.style.setProperty('--height', `${newVal.height}`)
+      },
     },
   },
 };
 </script>
 
 <style scope>
+:root{
+  --width:300px;
+  --height:200px;
+}
 .video-js .vjs-big-play-button {
   font-size: 2.5em !important;
   line-height: 2.3em !important;
@@ -61,5 +74,10 @@ export default {
 
 .video-js .vjs-remaining-time {
   display: none !important;
+}
+
+.a-video {
+  width: var(--width);
+  height: var(--height);
 }
 </style>
