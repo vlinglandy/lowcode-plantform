@@ -1,8 +1,9 @@
 <template>
   <div>
+    <div class='module'>常规</div>
     <div class='lineBox'>
       <div class="label">文本内容</div>
-      <input v-model="views.content">
+      <input v-model="views.content" placeholder="输入文本">
     </div>
     <!--8.18 hp更改 (以下)-->
     <div class='lineBox'>
@@ -79,12 +80,14 @@ export default {
 
 .select-box{
   outline: none;
+  padding-left: 1em;
 }
 
 .module{
-  width:100%;
-  height:36px;
+  width:280px;
+  height:26px;
   margin-top:3px;
+  padding-bottom: 5px;
   background-color:rgb(219, 226, 242);
   text-align:left;
   font-weight:700;

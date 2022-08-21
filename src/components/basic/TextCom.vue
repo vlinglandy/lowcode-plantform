@@ -1,6 +1,6 @@
 <template>
   <div :style="views.style" >
-    <p :style="views.textStyle"> {{views.content}}</p>
+    <div :style="views.textStyle"> {{views.content}}</div>
   </div>
 </template>
 

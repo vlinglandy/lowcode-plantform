@@ -162,15 +162,16 @@ export default {
 // 8.18 hp更改样式(以下)
 .right-line{
   display: flex;
-  padding: 7px 7px 7px 5px;
+  padding: 7px 5px 7px 12px;
   width: 100%;
   font-size: 14px;
-  .rlabel {
+  align-items: center;
+  .label {
   width: 70px;
   height: 100%;
   padding-top:3px;
   text-align: left;
-  align-items: center;
+ 
 }
   .el-radio-group{
   display: flex;
