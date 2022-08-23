@@ -92,6 +92,8 @@ export default {
     VideoCom: {
         focus: false,
         src: 'http://vjs.zencdn.net/v/oceans.mp4',
+        poster: 'https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/img/default.640d9a7.png',
+        controls:true,
         content: '点击增加视频',
         component: "VideoCom",
         style: {
