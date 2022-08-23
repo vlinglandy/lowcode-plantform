@@ -1,8 +1,8 @@
 <template>
   <div :style="views.style">
-    <video ref="video"  class="video-js vjs-default-skin vjs-big-play-centered a-video"
-      :src="videoSrc" controls>
-      <source :src="videoSrc" />
+    <video id="video" ref="video" :poster="views.poster" :style="views.videoStyle"  class="video-js vjs-default-skin vjs-big-play-centered" 
+      :src="videoSrc" :controls="views.controls">
+      <source class="vjs-poster" :src="videoSrc" />
     </video>
   </div>
 
@@ -15,17 +15,18 @@ export default {
     return {
       player: null, // 用来存储当前 videoS
       videoSrc: '',
-      render: true
+      posterSrc:'',
+      num : ''
     };
   },
   mounted() {
     // 渲染视频
-    this.player = this.$video(this.$refs.video);
+    // this.player = this.$video(this.$refs.video);
+    // let videoDom = document.getElementById('video')
+    
   },
   computed: {
-    url() {
-      return this.views.src;
-    },
+
   },
   watch: {
     'views.src': {
@@ -39,8 +40,9 @@ export default {
       deep: true,
       handler(newVal, oldVal) {
         console.log(newVal, oldVal)
-        document.documentElement.style.setProperty('--width', `${newVal.width}`)
-        document.documentElement.style.setProperty('--height', `${newVal.height}`)
+        // console.log(this.$refs.video)
+        // document.documentElement.style.setProperty('--width', `${newVal.width}`)
+        // document.documentElement.style.setProperty('--height', `${newVal.height}`)
       },
     },
   },
@@ -51,6 +53,7 @@ export default {
 :root{
   --width:300px;
   --height:200px;
+  --posterUrl:url("http://localhost:3001/");
 }
 .video-js .vjs-big-play-button {
   font-size: 2.5em !important;
@@ -76,8 +79,7 @@ export default {
   display: none !important;
 }
 
-.a-video {
-  width: var(--width);
-  height: var(--height);
+.vjs-poster{
+  background-image: var(--posterUrl);
 }
 </style>

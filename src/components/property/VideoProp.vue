@@ -3,8 +3,12 @@
     <div class='module'>常规</div>
     <div class='lineBox border smaller'>
       <div class="label">链接标题</div>
-      
       <input v-model="views.content">
+    </div>
+    <div class='lineBox border smaller'>
+      <div class="label">控制器开关</div>
+      <el-switch v-model="views.controls" active-color="#409eff" inactive-color="#dcdfe6">
+      </el-switch>
     </div>
     <div class='lineBox border smaller'>
       <div class="label">链接</div>
@@ -13,14 +17,14 @@
     <el-upload action="upload" :on-success="success" :show-file-list="false" :before-upload="beforeUpload">
       <el-button size="small" type="primary">点击上传</el-button>
     </el-upload>
-    <!-- <div class='lineBox'>
+    <div class='lineBox '>
       <div class="label">封面</div>
-      <el-upload class="avatar-uploader" action="upload" :show-file-list="false"
-        :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+      <el-upload class="avatar-uploader" action="upload" :show-file-list="false" :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload">
         <img v-if="views.poster" :src="views.poster" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
       </el-upload>
-    </div> -->
+    </div>
 
   </div>
 </template>
@@ -53,17 +57,17 @@ export default {
       return isMP4 && isLt30M;
     },
     beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
-        const isLt2M = file.size / 1024 / 1024 < 2;
+      const isJPG = file.type === 'image/jpeg';
+      const isLt2M = file.size / 1024 / 1024 < 2;
 
-        if (!isJPG) {
-          Message.error('上传头像图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
-          Message.error('上传头像图片大小不能超过 2MB!');
-        }
-        return isJPG && isLt2M;
+      if (!isJPG) {
+        Message.error('上传头像图片只能是 JPG 格式!');
       }
+      if (!isLt2M) {
+        Message.error('上传头像图片大小不能超过 2MB!');
+      }
+      return isJPG && isLt2M;
+    }
   },
 }
 </script>
@@ -229,28 +233,33 @@ export default {
   width: 158px;
   height: 38px;
 }
- .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    border: dotted 1px;
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+
+.avatar-uploader .el-upload {
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-uploader .el-upload:hover {
+  border-color: #409EFF;
+}
+
+.avatar-uploader-icon {
+  border: dotted 1px;
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+  object-fit: scale-down;
+}
 </style>
