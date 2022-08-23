@@ -15,8 +15,6 @@ export default {
     props: ["views"],
     data() {
     return {
-
-      
       datas:[
         {flag:"colorChoose",label:"背景颜色",style:"btnStyle",comprop:"backgroundColor"},
         {flag:"selectGroup",label:"按钮类型",style:"props",comprop:"btnType",options:[{label:"button",content:"按钮"},{label:"submit",content:"提交"},{label:"reset",content:"重置"}]},

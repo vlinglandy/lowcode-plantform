@@ -16,10 +16,6 @@ export default {
         }
     },
     method:{
-      enter(e){
-        e.target
-
-      }
     }
 }
 </script>

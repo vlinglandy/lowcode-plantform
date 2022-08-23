@@ -1,5 +1,5 @@
 <template>
-  <div class="right" v-if="Object.keys(views).length>0">
+  <div class="right" >
     <div class="right-describ">
       <img :src="require('@/'+'assets/page.png')" />页面
     </div>

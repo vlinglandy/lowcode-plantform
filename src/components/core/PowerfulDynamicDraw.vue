@@ -25,7 +25,6 @@
 
 <script>
 import '@/assets/css/componentBox.scss'
-import TextCom from '../basic/TextCom.vue';
 export default {
   props: [
     'views',
@@ -54,10 +53,7 @@ export default {
     dragstart(view, index , e) {
       this.$emit("dragstartEvent",view,index,e)
     },
-  },
-  components: {
-    TextCom
-},
+  }
 }
 </script>
 

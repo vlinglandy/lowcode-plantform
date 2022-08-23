@@ -105,7 +105,7 @@ export default {
   right: 0;
   background-color: #baf8ff;
   border: 2px solid #06c;
-  opacity: 0.5;
+  opacity: 0.7;
   z-index: 10;
 }
 

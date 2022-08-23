@@ -200,9 +200,9 @@ export default {
        handler(newValue,oldVal){
         if(!newValue || !oldVal) return 
         if(this.judgeTwoValueIsEqual(newValue,oldVal)) return 
-        console.log("新旧值")
-        console.log(newValue)
-        console.log(oldVal)
+        // console.log("新旧值")
+        // console.log(newValue)
+        // console.log(oldVal)
         if(this.step==1){
           //当为初始状态时
           sessionStorage.setItem(String(this.step),JSON.stringify([newValue]))
@@ -240,7 +240,6 @@ export default {
 
 <style lang="scss" scoped>
 
-
 .center {
   margin: 5px 10px 0 10px;
   position: relative;
@@ -253,6 +252,7 @@ export default {
   justify-content: flex-start;
   align-items: center;
   background: #fff;
+  border: 2px solid transparent;
 }
 
 .center::-webkit-scrollbar{
@@ -260,16 +260,12 @@ export default {
 }
 
 .mainBtn{
-    position: absolute;
-    left: 0;
-    top: 40px;
-    bottom: 0;
-    right: 0;
     background-color: #baf8ff;
     border: 2px solid #06c;
     opacity: 0.5;
     z-index: 2;
     height:calc(100% - 45px);
+    transition: all 0.3s;
 }
 .pcSize {
   width: 100%;
@@ -283,23 +279,13 @@ export default {
 
 .selected {
   /*hp修正点击组件因增加边框而偏移*/
-  border: 1px solid rgba(0, 108, 255) !important
+  border: 1px solid rgba(0, 108, 255) !important;
+  transition: all 0.9s;
 }
 
 .tpl-container {
   cursor: pointer;
 }
-
-.component-hover {
-  display: inline-block;
-  /*hp修正点击组件因增加边框而偏移*/
-  border: 1px solid transparent;
-}
-
-.component-hover:hover {
-  border: 1px dashed rgb(0, 108, 255);
-}
-
 
 .deleteBtn {
   position:absolute;

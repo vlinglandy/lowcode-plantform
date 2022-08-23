@@ -4,7 +4,7 @@
       <div class="inputLine" >
       <select class="select-box" v-model="views[datas.style][datas.comprop]" name="select">
         <option disabled value="">select</option>
-        <option v-for="(t,index) in datas.options" :key="index">{{t.label}}</option>
+        <option v-for="(t,index) in datas.options" :key="index">{{t}}</option>
       </select>
       </div>
     </div>
@@ -28,5 +28,7 @@ export default {
 </script>
 
 <style scope>
-
+select{
+  padding-left: 0px !important;
+}
 </style>

@@ -1,5 +1,5 @@
 export default {
-    LinkCom: { //更改了对象结构
+    LinkCom: {
         focus: false,
         link: 'www.baidu.com',
         content: '点击跳转',
@@ -120,9 +120,9 @@ export default {
             height: "60px",
             position: "relative",
             marginTop: "0px",
-            marginLeft: "0px",
+            marginLeft: "2px",
             marginBottom: "0px",
-            marginRight: "0px",
+            marginRight: "2px",
             paddingTop: "5px",
             paddingLeft: "5px",
             paddingBottom: "5px",
@@ -157,10 +157,10 @@ export default {
             position: "relative",
             boxSizing: 'border-box',
             overflow: 'hidden',
-            marginTop: "0px",
-            marginLeft: "0px",
-            marginBottom: "0px",
-            marginRight: "0px",
+            marginTop: "2px",
+            marginLeft: "2px",
+            marginBottom: "2px",
+            marginRight: "2px",
             paddingTop: "0px",
             paddingLeft: "0px",
             paddingBottom: "0px",
