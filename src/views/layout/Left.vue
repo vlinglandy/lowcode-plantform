@@ -234,7 +234,7 @@ export default {
 
 .Tright .topBtn {
   cursor: pointer;
-  background-position: -26px -23px;
+  background-position: -18px -19px;
 }
 
 .Tright .closeBtn {

@@ -5,7 +5,7 @@
      @click="btnClick"
      disabled
      >
-      {{views.content}}
+      {{views.props.content}}
      </button>
     </div>
 </template>

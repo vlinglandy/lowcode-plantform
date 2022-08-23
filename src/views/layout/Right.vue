@@ -20,7 +20,7 @@
 
 
 <script>
-
+import '@/assets/css/rightModule.scss'
 export default {
   data() {
     return {

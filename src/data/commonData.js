@@ -19,10 +19,12 @@ export default {
     },
     ButtonCom: {
         focus: false,
-        link: '#',
-        content: '按钮',
         component: 'ButtonCom',
-        btnType: 'button',
+        props: {
+            link: '#',
+            content: '按钮',
+            btnType: 'button',
+        },
         style: {
             top: '',
             left: '',
@@ -137,7 +139,7 @@ export default {
             borderRadius: "0px",
             lineHeight: ""
         },
-        content: "",
+        props: { content: "" },
         views: [],
         children: []
     },

@@ -21,6 +21,16 @@ import TextCom from '@/components/basic/TextCom'
 import VideoCom from '@/components/basic/VideoCom'
 import DeleteDialog from '@/components/global/DeleteDialog'
 import ReleaseDialog from '@/components/global/ReleaseDialog'
+//右侧组件
+import numInput from '@/components/module/numInput'
+import colorChoose from '@/components/module/colorChoose'
+import txtInput from '@/components/module/txtInput'
+import selectCols from '@/components/module/selectCols'
+import selectGroup from '@/components/module/selectGroup'
+import switchBtn from '@/components/module/switchBtn'
+
+
+
 
 // 动态渲染
 import DynamicDraw from '@/components/core/DynamicDraw'
@@ -29,35 +39,44 @@ import SingleDraw from '@/components/core/SingleDraw'
 // 单个渲染
 import PowerfulDynamicDraw from '@/components/core/PowerfulDynamicDraw'
 
-  
+
 export default {
-    install(Vue){
-        Vue.component('ButtonStyle',ButtonStyle)
-        Vue.component('VideoCom',VideoCom)
-        Vue.component('TextCom',TextCom)
-        Vue.component('LinkCom',LinkCom)
-        Vue.component('ImgCom',ImgCom)
-        Vue.component('ButtonCom',ButtonCom)
-        Vue.component('PageHeader',PageHeader)
-        Vue.component('CenterButton',CenterButton)
-        Vue.component('VideoProp',VideoProp)
-        Vue.component('TextProp',TextProp)
-        Vue.component('LinkProp',LinkProp)
-        Vue.component('ImgProp',ImgProp)
-        Vue.component('FlexBoxProp',FlexBoxProp)
-        Vue.component('CommonProp',CommonProp)
-        Vue.component('ButtonProp',ButtonProp)
-        Vue.component('VideoStyle',VideoStyle)
-        Vue.component('TextStyle',TextStyle)
-        Vue.component('LinkStyle',LinkStyle)
-        Vue.component('ImgStyle',ImgStyle)
-        Vue.component('FlexBoxStyle',FlexBoxStyle)
-        Vue.component('CommonStyle',CommonStyle)
-        Vue.component('DeleteDialog',DeleteDialog)
-        Vue.component('ReleaseDialog',ReleaseDialog)
-        Vue.component('PowerfulDynamicDraw',PowerfulDynamicDraw)
-        Vue.component('DynamicDraw',DynamicDraw)
-        Vue.component('SingleDraw',SingleDraw)
-        Vue.component('FlexBox',FlexBox)
+    install(Vue) {
+        Vue.component('ButtonStyle', ButtonStyle)
+        Vue.component('VideoCom', VideoCom)
+        Vue.component('TextCom', TextCom)
+        Vue.component('LinkCom', LinkCom)
+        Vue.component('ImgCom', ImgCom)
+        Vue.component('ButtonCom', ButtonCom)
+        Vue.component('PageHeader', PageHeader)
+        Vue.component('CenterButton', CenterButton)
+        Vue.component('VideoProp', VideoProp)
+        Vue.component('TextProp', TextProp)
+        Vue.component('LinkProp', LinkProp)
+        Vue.component('ImgProp', ImgProp)
+        Vue.component('FlexBoxProp', FlexBoxProp)
+        Vue.component('CommonProp', CommonProp)
+        Vue.component('ButtonProp', ButtonProp)
+        Vue.component('VideoStyle', VideoStyle)
+        Vue.component('TextStyle', TextStyle)
+        Vue.component('LinkStyle', LinkStyle)
+        Vue.component('ImgStyle', ImgStyle)
+        Vue.component('FlexBoxStyle', FlexBoxStyle)
+        Vue.component('CommonStyle', CommonStyle)
+        Vue.component('DeleteDialog', DeleteDialog)
+        Vue.component('ReleaseDialog', ReleaseDialog)
+        Vue.component('PowerfulDynamicDraw', PowerfulDynamicDraw)
+        Vue.component('DynamicDraw', DynamicDraw)
+        Vue.component('SingleDraw', SingleDraw)
+        Vue.component('FlexBox', FlexBox)
+        Vue.component('numInput', numInput)
+        Vue.component('colorChoose', colorChoose)
+        Vue.component('txtInput', txtInput)
+        Vue.component('selectCols', selectCols)
+        Vue.component('selectGroup', selectGroup)
+        Vue.component('switchBtn', switchBtn)
+
+
+
     }
 }

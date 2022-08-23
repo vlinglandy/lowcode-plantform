@@ -1,20 +1,12 @@
 <template>
   <div>
-    <div class='lineBox'>
-      <div class="label">字体大小</div>
-      <input v-model="views.linkStyle.fontSize">
-    </div>
-    <div class='lineBox'>
-      <div class="label">加粗</div>
-      <el-switch v-model="views.linkStyle.fontWeight" active-value="700" inactive-value="400"></el-switch>
-    </div>
-    <div class='lineBox'>
-      <div class="label">下划线</div>
-      <el-switch v-model="views.linkStyle.textDecoration" active-value="underline" inactive-value="none"></el-switch>
-    </div>
+    <conponent v-for="(datas,index) in datas" 
+    :key="index" 
+    :is="datas.flag" 
+    :datas="datas" 
+    :views="views"
+    ></conponent>
   </div>
-
-
 </template>
 
 <script>
@@ -22,39 +14,16 @@ export default {
   props: ["views"],
   data() {
     return {
-      value1: true,
+      datas:[
+        {flag:"numInput",label:"字体大小",style:"linkStyle",comprop:"fontSize",unitSelect:true},
+        {flag:"colorChoose",label:"字体颜色",style:"linkStyle",comprop:"color"},
+        {flag:"selectGroup",label:"装饰线",style:"linkStyle",comprop:"textDecoration",options:[{label:"none",content:"无"},{label:"line-through",content:"中间"},{label:"underline",content:"底部"}]},
+        {flag:"selectCols" ,label:"字重",style:"linkStyle",comprop:"fontWeight",options:[{label:"400",content:"400"},{label:"700",content:"700"},{label:"900",content:"900"}]},
+      ]
     }
-  },
+  }
 }
 </script>
 
 <style>
-.lineBox {
-  display: flex;
-  margin: 20px 12px;
-  height: 28px;
-  width: 100%;
-  font-size: 14px;
-  line-height: 28px;
-}
-
-
-
-.lineBox input {
-  width: 60%;
-  height: 100%;
-  text-indent: 1em;
-  align-items: center;
-  border: 1px solid rgba(196, 198, 207, 1);
-  outline-color: #419efe;
-  border-radius: 2px;
-  box-sizing: border-box;
-}
-
-.label {
-  width: 70px;
-  height: 100%;
-  text-align: left;
-  align-items: center;
-}
 </style>
