@@ -33,20 +33,11 @@ export default {
 }
 </script>
 
-<style scope>
-.card{
-  width: 50px;
-  text-align: center;
-  line-height: 50px;
-  margin: 0 auto;
-  height: 50px;
-  background: #00f;
-  color: aliceblue;
-  margin-top: 5px;
-}
-
+<style scoped>
 .button-com{
   transition: all 0.2s;
+  box-sizing: content-box;
+   border: 1px solid transparent;
 }
 
 .button-com:hover{

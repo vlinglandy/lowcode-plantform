@@ -173,7 +173,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 
 .mask{
   position: absolute;
@@ -193,7 +193,7 @@ export default {
 }
 .selected {
   /*hp修正点击组件因增加边框而偏移*/
-  border: 1px solid rgb(238, 248, 131) !important
+  border: 1px solid rgb(0, 108, 255) !important
 }
 
 .flex{

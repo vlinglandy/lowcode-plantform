@@ -1,5 +1,5 @@
 <template>
- <div class='lineBox'>
+ <div class='lineBox border smaller'>
       <div class="label">{{datas.label}}</div>
       <input v-model="views[datas.style][datas.comprop]" placeholder="输入文本">
     </div>

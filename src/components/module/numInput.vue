@@ -1,5 +1,5 @@
 <template>
-<div class='lineBox'>
+<div class='lineBox border smaller'>
       <div class="label">{{datas.label}}</div>
       <div class="inputLine" >
       <input :value="views[datas.style][datas.comprop].replace(/[a-z%]+/,'')" @input="views[datas.style][datas.comprop]=$event.target.value+type" autocomplete="off" placeholder="0">
@@ -37,6 +37,6 @@ export default {
 
 </script>
 
-<style scope>
+<style >
 
 </style>

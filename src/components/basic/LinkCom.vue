@@ -1,10 +1,12 @@
 <template>
+
   <div class="link" :style="views.style" @click="linkClick">
-    <a type="primary" :underline="false" :href="'https://' + views.link" :style="views.linkStyle" ref="linkCom">{{
+    <a class="link-a" :href="'https://' + views.link" :style="views.linkStyle" ref="linkCom">{{
         views.content
     }}
     </a>
   </div>
+
 </template>
 
 <script>
@@ -33,14 +35,12 @@ export default {
 }
 </script>
 
-<style scope>
+<style scoped>
 .link {
   text-align: center;
   padding: 1px 10px;
+  box-sizing: content-box;
+  border: 1px solid transparent;
 }
 
-.link a {
-  color: #409EFF;
-  text-decoration: none;
-}
 </style>

@@ -8,12 +8,15 @@ export default {
             top: '',
             left: '',
             position: '',
-            width: '80px',
+            width: "80px",
             height: "40px"
         },
         linkStyle: {
-            height: "50px",
+            height: "40px",
             fontSize: "16px",
+            color: "#409EFF",
+            textDecoration: "none",
+            lineHeight: "40px"
         },
         sonStyle: 'linkStyle'
     },
@@ -93,7 +96,7 @@ export default {
         focus: false,
         src: 'http://vjs.zencdn.net/v/oceans.mp4',
         poster: 'https://lf3-cdn-tos.bytescm.com/obj/static/xitu_juejin_web/img/default.640d9a7.png',
-        controls:true,
+        controls: true,
         content: '点击增加视频',
         component: "VideoCom",
         style: {

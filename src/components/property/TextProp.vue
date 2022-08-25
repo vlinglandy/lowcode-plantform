@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class='module'>文本内容</div>
+    <div class='module border smaller'>文本内容</div>
     <textarea class='content' v-model="views.content"></textarea>
 
    

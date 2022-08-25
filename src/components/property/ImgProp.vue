@@ -46,8 +46,6 @@ export default {
 
 <style scoped>
 
-
-
 .input {
   width: 70%;
   float: right;

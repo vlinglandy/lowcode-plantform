@@ -81,7 +81,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .showBorder{
   border: 1px dashed #06c;
   width: 100%;

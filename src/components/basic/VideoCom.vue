@@ -49,7 +49,7 @@ export default {
 };
 </script>
 
-<style scope>
+<style scoped>
 :root{
   --width:300px;
   --height:200px;

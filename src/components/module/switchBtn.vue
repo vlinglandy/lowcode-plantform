@@ -1,5 +1,5 @@
 <template>
- <div class='lineBox'>
+ <div class='lineBox border smaller'>
       <div class="label">{{datas.label}}</div>
       <el-switch v-model="views[datas.style][datas.comprop]" :active-value="datas.value[0]" :inactive-value="datas.value[1]"></el-switch>
     </div>

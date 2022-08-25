@@ -57,7 +57,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scope>
+<style lang="scss" >
 .selected {
   border: 2px solid rgba(0,108,255);
 }
