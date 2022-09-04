@@ -1,11 +1,12 @@
-lowcode-plantform
-介绍
+# lowcode-plantform
+
+#### 介绍
 拖拽生成h5页面低代码平台
 
-在线教程
+## 在线教程
 http://doc.gql.fit
 
-b站视频解说 + 38分14秒还原掘金首页
+## b站视频解说  + 38分14秒还原掘金首页
 https://www.bilibili.com/video/BV1PG4y1k7Gd?spm_id_from=333.1007.top_right_bar_window_default_collection.content.click
 
 # 更新与反馈，如有帮助还望一键三连
@@ -23,3 +24,4 @@ https://www.bilibili.com/video/BV1PG4y1k7Gd?spm_id_from=333.1007.top_right_bar_w
 ## 暂时搁置需求，如果反馈良好可加快更新:
 1. 通过按键ctrl +或-快速调整盒子的margin和padding
 2. 增加透视功能
+
