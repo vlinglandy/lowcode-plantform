@@ -42,7 +42,7 @@ export default {
             datas:[[
               {flag:"colorChoose",label:"背景颜色",style:"style",comprop:"backgroundColor"},
               {flag:"selectGroup",label:"换行",style:"style",comprop:"flexWrap",options:[{label:"warp",content:"换行"},{label:"nowarp",content:"不换行"}]},
-              {flag:"selectGroup",label:"主轴方向",style:"style",comprop:"flexDirection",options:[{label:"row",content:"横向"},{label:"reset",content:"竖向"}]},
+              {flag:"selectGroup",label:"主轴方向",style:"style",comprop:"flexDirection",options:[{label:"row",content:"横向"},{label:"column",content:"竖向"}]},
               {flag:"selectGroup",label:"主轴对齐",style:"style",comprop:"justifyContent",options:[{label:"flex-start",content:"头"},{label:"center",content:"居中"},{label:"flex-end",content:"尾"},{label:"space-around",content:"均匀"},{label:"space-between",content:"两侧"}]},
               {flag:"selectGroup",label:"侧轴对齐",style:"style",comprop:"alignItems",options:[{label:"flex-start",content:"头"},{label:"center",content:"居中"},{label:"flex-end",content:"尾"},{label:"space-around",content:"均匀"},{label:"space-between",content:"两侧"}]},
               ],[
@@ -50,7 +50,7 @@ export default {
               {flag:"numInput",label:"边框宽度",style:"style",comprop:"borderWidth",unitSelect:false},
               {flag:"numInput",label:"边框圆角",style:"style",comprop:"borderRadius",unitSelect:false},
               {flag:"selectGroup",label:"BoxSizing",style:"style",comprop:"boxSizing",options:[{label:"content-box",content:"content"},{label:"border-box",content:"border"}]},
-              {flag:"selectGroup",label:"边框样式",style:"style",comprop:"flexWrap",options:[{label:"solid",content:"实线"},{label:"dashed",content:"虚线"},{label:"dotted",content:"点线"}]},
+              {flag:"selectGroup",label:"边框样式",style:"style",comprop:"borderStyle",options:[{label:"solid",content:"实线"},{label:"dashed",content:"虚线"},{label:"dotted",content:"点线"}]},
               ]
             ]
         }

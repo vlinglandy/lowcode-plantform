@@ -11,7 +11,7 @@
         @load="load"
       ></iframe>
       <template #footer>
-        <el-button @click.stop="unVisiable" size="mini">关闭</el-button>
+        <el-button @click.stop="unVisiable" size="small">关闭</el-button>
       </template>
       <!-- <van-loading v-if="loading" size="24px" vertical>加载中</van-loading> -->
     </el-dialog>
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       loading: true,
-      origin:'http://localhost:8080'
+      origin:'http://lc.gql.fit'
     }
   },
   beforeCreate(){

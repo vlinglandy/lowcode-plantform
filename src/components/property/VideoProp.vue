@@ -14,15 +14,20 @@
       <div class="label">链接</div>
       <input v-model="views.src">
     </div>
-    <el-upload action="upload" :on-success="success" :show-file-list="false" :before-upload="beforeUpload">
+    <el-upload action="http://47.95.23.74:3001/upload" :on-success="success" :show-file-list="false" :before-upload="beforeUpload">
       <el-button size="small" type="primary">点击上传</el-button>
     </el-upload>
     <div class='lineBox '>
       <div class="label">封面</div>
-      <el-upload class="avatar-uploader" action="upload" :show-file-list="false" :on-success="handleAvatarSuccess"
+      <el-upload class="avatar-uploader" action="http://47.95.23.74:3001/upload" :show-file-list="false" :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload">
         <img v-if="views.poster" :src="views.poster" class="avatar">
         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+         <template #tip>
+          <div class="el-upload__tip" style="margin:0px;">
+            点击封面上传
+          </div>
+        </template>
       </el-upload>
     </div>
 
@@ -40,33 +45,35 @@ export default {
   },
   methods: {
     success(response) {
-      this.views.src = 'http://127.0.0.1:3001/' + response.path.slice(7)
+      this.views.src = 'http://47.95.23.74:3001/' + response.path.slice(7)
+      this.$message.success("上传成功！")
     },
     handleAvatarSuccess(response) {
-      this.views.poster = 'http://127.0.0.1:3001/' + response.path.slice(7)
+      this.views.poster = 'http://47.95.23.74:3001/' + response.path.slice(7)
+      this.$message.success("上传成功！")
     },
     beforeUpload(file) {
       const isMP4 = file.type === 'video/mp4';
       const isLt30M = file.size / 1024 / 1024 < 30;
       if (!isMP4) {
-        Message.error('上传视频只能是 MP4 格式!');
+        this.$message.error('上传视频只能是 MP4 格式!');
       }
       if (!isLt30M) {
-        Message.error('上传视频大小不能超过 30MB!');
+        this.$message.error('上传视频大小不能超过 30MB!');
       }
       return isMP4 && isLt30M;
     },
     beforeAvatarUpload(file) {
-      const isJPG = file.type === 'image/jpeg';
+      const isSVG = file.type === 'image/svg';
       const isLt2M = file.size / 1024 / 1024 < 2;
 
-      if (!isJPG) {
-        Message.error('上传头像图片只能是 JPG 格式!');
+      if (isSVG) {
+        this.$message.error('不能上传 SVG 格式!');
       }
       if (!isLt2M) {
-        Message.error('上传头像图片大小不能超过 2MB!');
+        this.$message.error('上传头像图片大小不能超过 2MB!');
       }
-      return isJPG && isLt2M;
+      return !isSVG && isLt2M;
     }
   },
 }

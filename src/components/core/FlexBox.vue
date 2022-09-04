@@ -61,6 +61,11 @@ export default {
       if(!this.edit) return // 如果不是编辑状态，无效
       this.$bus.emit("sonAddFlexBox",node)
     },
+    copy(e,views){
+      e.preventDefault()
+      // this.$bus.emit("copy",views)
+      console.log("复制成功");
+    },
     // 组件拖拽时悬浮时高亮
     dragenterLight(e,node){
       e.preventDefault();
@@ -172,7 +177,11 @@ export default {
 </script>
 
 <style scoped>
-
+.myflexbox{
+  position: relative !important;
+  display: flex !important;
+  overflow: hidden !important;
+}
 .mask{
   position: absolute;
   left: 0;

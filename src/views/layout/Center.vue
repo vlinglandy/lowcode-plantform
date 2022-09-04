@@ -4,6 +4,7 @@
     <CenterButton style="z-index:100;" @click.stop="addFlexBox" v-if="showButton && edit"></CenterButton>
     <!-- 将需要读取的变量通通传递，只提供自定义事件修改变量 -->
     <PowerfulDynamicDraw 
+      ref="page"
       :centerCom="centerCom"
       :currentCom="currentCom"
       :edit="edit"
@@ -49,6 +50,8 @@ export default {
       src:'',// 发布网址的链接
       currentViews:[],// 当前要修改的views
       currentViewsIndex:-1,// 当前要修改的view所在currentViews的索引
+      copyViews:'',//当前复制的变量
+      brushStyle:'',// 样式刷，用于复制样式
     };
   },
   created(){
@@ -65,9 +68,12 @@ export default {
                   'clearFocus','sendDeleteIndex','sonAddFlexBox','showDeleteDialog',
                   // 更新中心变量   |   更新当前选中组件 | 导出Html  |  关闭中心变量  
                   'refreshCurrentCom','updateCurrentCom','exportHtml','offCenter' , 
-                  // 切换静态/绝对定位  | 保存  |   重置
-                  'switchPattern',     'save'   ,'reset'],this)
-    
+                  // 切换静态/绝对定位  | 保存  |   重置 | 监听复制/粘贴/样式刷/涂抹
+                  'switchPattern',     'save'   ,'reset','onkeydown'],this)
+    // this.$bus.on("exportHtml2",()=>{
+    //   console.log(this.$refs.page);
+    //   console.log(window.document.getElementsByClassName('DynamicDraw')[0])
+    // })
   },
   methods: {
     //删除组件

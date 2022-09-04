@@ -45,7 +45,7 @@
           >{{ absolute ? '绝对定位' : '静态定位' }}</el-button
         >
         <el-button size="small" @click="save">保 存</el-button>
-        <el-button size="small" @click="$refs.file.click()">导入 json</el-button>
+        <el-button size="small" @click="$refs.file.click()">导入 Json</el-button>
         <el-button size="small" @click="reset" type="primary">重 置</el-button>
         <el-button size="small" @click="switchState" type="primary">{{
           edit ? '预览' : '编辑'

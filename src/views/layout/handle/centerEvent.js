@@ -29,9 +29,67 @@ export function eventHandle(eventArr,that){
             case 'switchPattern' : switchPattern(that);break;
             case 'save' : save(that);break;
             case 'reset' : reset(that);break;
+            case 'onkeydown' : onkeydown(that);break;
         }
     }
 }
+
+function onkeydown(that){
+  window.document.onkeydown = (e)=>{
+    // 复制
+    if(e.ctrlKey && e.key == 'c' && that.currentCom.component){
+      that.copyViews = that.currentCom;
+      that.$message.success('复制成功，请在弹性盒子中粘贴')
+    }
+    // 粘贴
+    if(e.ctrlKey && e.key == 'v' && that.copyViews.component && that.currentCom.component=='FlexBox'){
+      that.currentCom.children.push(deepClone( that.copyViews ))
+    }
+    // 样式刷
+    if(e.ctrlKey && e.key == 'b' && that.currentCom.component){
+      if(that.currentCom.component == 'FlexBox'){
+        that.brushStyle = that.currentCom.style
+      }else{
+        that.brushStyle = that.currentCom[that.currentCom['sonStyle']]
+      }
+      that.$message.success('样式刷成功，按ctrl + Q粘贴样式')
+    }
+    // 涂抹
+    if(e.ctrlKey && e.key == 'q' && that.brushStyle && that.currentCom.component){
+      if(that.currentCom.component == 'FlexBox'){
+        that.currentCom.style = deepClone( that.brushStyle )
+      }else{
+        that.currentCom[that.currentCom['sonStyle']] = deepClone( that.brushStyle )
+      }
+    }
+  }
+}
+// function copy(that){
+//   window.document.onkeydown = (e)=>{
+//     if(e.ctrlKey && e.key == 'c' && that.currentCom.component){
+//       that.copyViews = that.currentCom;
+//       that.$message.success('复制成功，请在弹性盒子中粘贴')
+//     }
+//   }
+  // that.$bus.on('copy',(views)=>{
+  //   that.copyViews = views;
+  //   that.$message.success('复制成功')
+  // })
+// }
+
+// function paste(that){
+
+  // window.document.onkeydown = (e)=>{
+  //   if(e.ctrlKey && e.key == 'v' && that.copyViews.component && that.currentCom.component=='FlexBox'){
+  //     that.currentCom.children.push(deepClone( that.copyViews ))
+  //   }
+  // }
+  // that.$bus.on('paste',()=>{
+  //   if(that.copyViews && that.currentCom.component=='FlexBox'){
+  //     that.currentCom.children.push(deepClone( that.copyViews ))
+  //   }
+  // })
+// }
 
 function saveJson(that){
     // 保存json接收
@@ -61,8 +119,10 @@ function switchPattern(that){
 }
 
 function showDeleteDialog(that){
+  // 不弹窗，直接删除
     that.$bus.on("showDeleteDialog",()=>{
-        if(that.edit)that.dialogVisible = true
+        // if(that.edit)that.dialogVisible = true
+        that.delCom()
     })
 }
 
@@ -197,7 +257,7 @@ function sonAddFlexBox(that){
           data.children.push(newData);
         }
         // 激活向右发送数据事件
-        that.$bus.emit('views',newData);
+        // that.$bus.emit('views',newData);
     })
 }
 

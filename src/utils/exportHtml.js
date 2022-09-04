@@ -5,14 +5,27 @@ import jsonToHtml from "./jsonToHtml";
 import FileSaver from 'file-saver'
 
 
-
+let marginT={
+    top:0,
+    right:0,
+    bottom:0,
+    left:0
+}
+let paddingT={
+    top:0,
+    right:0,
+    bottom:0,
+    left:0
+}
 function styleToStr(obj){
     let str = ''
+    // let marginFlag=false
+    // let paddingFlag=false
     for(let k in obj){
-        if(obj[k]!=''){
+        if(obj[k] != '' && obj[k] != 'px' && obj[k] != '%' && parseInt(obj[k]) != 0){
             let realK = k.replace(/([A-Z])/,function($1){return '-'+$1.toLocaleLowerCase()})
             str+=`
-                ${realK}: ${obj[k]} ;`
+            ${realK}: ${obj[k]} ;`
         }
     }
     return str
@@ -37,29 +50,29 @@ export function exportHtmlHandle(views,isVue){
     FileSaver.saveAs(blob, fileName)
 }
 
-
+let set=new Set(['FlexBox','ButtonCom','TextCom','VideoCom','LinkCom','ImgCom'])
 
 function getHtmlRes(view){
     // 遍历views数组
+    if(!set.has(view.component))return null;
     let tempDom = jsonToHtml[view.component](view, baseIndex )
     let childDom = tempDom.cloneNode(true)
     let tempStr = styleToStr(view.style)
     
     styleStr += `
-        ${"." + baseName +"-" + baseIndex++}{
-        ${tempStr}
-    }` 
+        ${"." + baseName +"-" + baseIndex++}{${tempStr}
+        }` 
     if(view.component != 'FlexBox'){
         let sonStr = styleToStr(view[view.sonStyle])
         styleStr += `
-            ${"." + baseName +"-" + baseIndex++}{
-            ${sonStr}
-        }` 
+            ${"." + baseName +"-" + baseIndex++}{${sonStr}
+            }` 
     }
     
     if(view.children){
         for(let i = 0; i < view.children.length; i++){
-            childDom.appendChild(getHtmlRes(view.children[i]))
+            let newDom=getHtmlRes(view.children[i])
+            if(newDom)childDom.appendChild(newDom)
         }
     }
     return childDom
