@@ -35,10 +35,11 @@ export function eventHandle(eventArr,that){
 }
 
 function onkeydown(that){
-  window.document.onkeydown = (e)=>{
+  window.document.getElementsByClassName('DynamicDraw')[0].onkeydown = (e)=>{
     // 复制
+    e.preventDefault();
     if(e.ctrlKey && e.key == 'c' && that.currentCom.component){
-      that.copyViews = that.currentCom;
+      that.copyViews = deepClone(that.currentCom);
       that.$message.success('复制成功，请在弹性盒子中粘贴')
     }
     // 粘贴
@@ -48,9 +49,9 @@ function onkeydown(that){
     // 样式刷
     if(e.ctrlKey && e.key == 'b' && that.currentCom.component){
       if(that.currentCom.component == 'FlexBox'){
-        that.brushStyle = that.currentCom.style
+        that.brushStyle = deepClone(that.currentCom.style)
       }else{
-        that.brushStyle = that.currentCom[that.currentCom['sonStyle']]
+        that.brushStyle = deepClone(that.currentCom[that.currentCom['sonStyle']])
       }
       that.$message.success('样式刷成功，按ctrl + Q粘贴样式')
     }

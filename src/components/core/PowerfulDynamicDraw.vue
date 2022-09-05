@@ -16,6 +16,7 @@
         :centerCom="centerCom"
         :pattern="pattern"
         :currentCom="currentCom"
+        contenteditable="false"
         @click.stop="select(index,view)"
         @dragenter.stop="dragenterLight($event,view)"
     >

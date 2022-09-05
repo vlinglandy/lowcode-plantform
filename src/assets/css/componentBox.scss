@@ -11,6 +11,9 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    outline: none;
+    cursor: default;
+    caret-color: transparent;
 }
 
 .tpl-container{

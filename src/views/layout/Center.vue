@@ -14,6 +14,7 @@
       @selectEvent="select"
       @dragstartEvent="dragstart"
       :pattern="pattern"
+      contenteditable="true"
       ></PowerfulDynamicDraw>
     <DeleteDialog v-model:dialogVisible="dialogVisible" :edit="edit" @delComEvent="delCom" />
     <ReleaseDialog v-model:releaseVisiable="releaseVisiable" :views="views"/>
