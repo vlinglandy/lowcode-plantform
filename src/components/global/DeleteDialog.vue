@@ -2,7 +2,7 @@
   <div>
     <el-dialog
       title="提示"
-      v-model="dialogVisible"
+      :modelValue="dialogVisible"
       width="30%"
       v-if="edit"
       :show-close="false"

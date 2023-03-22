@@ -3,6 +3,12 @@
 #### 介绍
 拖拽生成h5页面低代码平台
 
+## 推荐环境 
+node 14 版本
+npm 6 版本 新版npm对依赖检测更为严格，如果是大于6版本的可以执行以下  npx -p npm@6 npm i --legacy-peer-deps
+需要本地安装vuecli
+npm i -g @vue/cli
+
 ## 在线教程
 http://doc.gql.fit
 

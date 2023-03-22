@@ -1,6 +1,6 @@
 <template>
   <div class="RealTimeView">
-    <el-dialog v-model="releaseVisiable" :show-close="false" width="850px" top="8vh">
+    <el-dialog :modelValue="releaseVisiable" :show-close="false" width="850px" top="8vh">
       
       <iframe
         v-if="releaseVisiable"

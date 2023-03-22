@@ -2,7 +2,7 @@
   <div class="background">
     <el-dialog
       title="生成的链接"
-      v-model="sendVisiable"
+      :modelValue="sendVisiable"
       width="30%"
       top="20vh"
     >
